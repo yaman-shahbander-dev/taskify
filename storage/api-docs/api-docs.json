@@ -1,0 +1,33 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test API",
+        "description": "API Documentation Test",
+        "contact": {
+            "email": "support@mysite.com"
+        },
+        "license": {
+            "name": "Proprietary",
+            "url": ""
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/test": {
+            "get": {
+                "operationId": "8c679225a1e8478d550461677ce1a9cf",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    }
+}
