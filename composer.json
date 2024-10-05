@@ -10,6 +10,7 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "spatie/laravel-event-sourcing": "^7.8",
+        "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-model-states": "^2.7",
         "zircote/swagger-php": "^4.10"
     },
