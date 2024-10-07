@@ -16,6 +16,7 @@
         "spatie/laravel-activitylog": "^4.8",
         "spatie/laravel-data": "^4.10",
         "spatie/laravel-event-sourcing": "^7.8",
+        "spatie/laravel-health": "^1.30",
         "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-model-states": "^2.7",
         "spatie/laravel-permission": "^6.9",
