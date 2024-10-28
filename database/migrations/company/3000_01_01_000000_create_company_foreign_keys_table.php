@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('companies_departments')) {
-            Schema::table('companies_departments', function (Blueprint $table) {
+        if (Schema::hasTable('company_departments')) {
+            Schema::table('company_departments', function (Blueprint $table) {
                 $table->foreign('company_id')
                     ->references('id')
                     ->on('companies')
@@ -25,14 +25,14 @@ return new class extends Migration
             Schema::table('departments_teams', function (Blueprint $table) {
                 $table->foreign('department_id')
                     ->references('id')
-                    ->on('companies_departments')
+                    ->on('company_departments')
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
             });
         }
 
-        if (Schema::hasTable('teams_members')) {
-            Schema::table('teams_members', function (Blueprint $table) {
+        if (Schema::hasTable('team_members')) {
+            Schema::table('team_members', function (Blueprint $table) {
                 $table->foreign('team_id')
                     ->references('id')
                     ->on('departments_teams')
@@ -85,17 +85,17 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('companies_departments', function (Blueprint $table) {
-            $table->dropForeign('companies_departments_company_id_foreign');
+        Schema::table('company_departments', function (Blueprint $table) {
+            $table->dropForeign('company_departments_company_id_foreign');
         });
 
         Schema::table('departments_teams', function (Blueprint $table) {
             $table->dropForeign('departments_teams_department_id_foreign');
         });
 
-        Schema::table('teams_members', function (Blueprint $table) {
-            $table->dropForeign('teams_members_team_id_foreign');
-            $table->dropForeign('teams_members_user_id_foreign');
+        Schema::table('team_members', function (Blueprint $table) {
+            $table->dropForeign('team_members_team_id_foreign');
+            $table->dropForeign('team_members_user_id_foreign');
         });
 
         Schema::table('team_member_roles', function (Blueprint $table) {
