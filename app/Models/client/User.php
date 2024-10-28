@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\client;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,6 +10,7 @@ use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,7 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasRoles;
     use LogsActivity;
+    use HasUuids;
 
     /**
      * The attributes that are mass assignable.
