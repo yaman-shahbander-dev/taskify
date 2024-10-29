@@ -2,15 +2,14 @@
 
 namespace Database\Factories\project;
 
-use App\Models\company\Company;
-use App\Models\company\CompanyDepartment;
-use App\Models\project\Project;
+use App\Domain\Company\Models\Company;
+use App\Domain\Company\Models\CompanyDepartment;
 use Database\Factories\company\CompanyDepartmentFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProjectFactory extends Factory
 {
-    protected $model = Project::class;
+    protected $model = \App\Domain\Project\Models\Project::class;
     /**
      * Define the model's default state.
      *

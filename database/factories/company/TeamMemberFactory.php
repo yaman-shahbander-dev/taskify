@@ -2,9 +2,9 @@
 
 namespace Database\Factories\company;
 
-use App\Models\client\User;
-use App\Models\company\DepartmentTeam;
-use App\Models\company\TeamMember;
+use App\Domain\Client\Models\User;
+use App\Domain\Company\Models\DepartmentTeam;
+use App\Domain\Company\Models\TeamMember;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TeamMemberFactory extends Factory

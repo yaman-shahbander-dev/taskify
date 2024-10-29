@@ -2,9 +2,9 @@
 
 namespace Database\Factories\company;
 
-use App\Models\company\Company;
+use App\Domain\Company\Models\TrainingPolicy;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\company\TrainingPolicy;
+
 class TrainingPolicyFactory extends Factory
 {
     protected $model = TrainingPolicy::class;
@@ -17,7 +17,7 @@ class TrainingPolicyFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'company_id' => Company::query()->inRandomOrder()->first()->id,
+            'company_id' => \App\Domain\Company\Models\Company::query()->inRandomOrder()->first()->id,
             'description' => fake()->sentence,
             'created_at' => now(),
             'updated_at' => now(),

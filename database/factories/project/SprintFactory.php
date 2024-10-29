@@ -2,13 +2,11 @@
 
 namespace Database\Factories\project;
 
-use App\Models\project\Project;
-use App\Models\project\Sprint;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SprintFactory extends Factory
 {
-    protected $model = Sprint::class;
+    protected $model = \App\Domain\Project\Models\Sprint::class;
     /**
      * Define the model's default state.
      *
@@ -21,7 +19,7 @@ class SprintFactory extends Factory
 
         return [
             'id' => fake()->unique()->uuid(),
-            'project_id' => Project::query()->inRandomOrder()->first()->id,
+            'project_id' => \App\Domain\Project\Models\Project::query()->inRandomOrder()->first()->id,
             'number' => fake()->unique()->randomDigitNotZero(),
             'start' => $start,
             'end' => $end,

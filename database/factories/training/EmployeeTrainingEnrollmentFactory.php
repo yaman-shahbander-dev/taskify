@@ -2,9 +2,9 @@
 
 namespace Database\Factories\training;
 
-use App\Models\client\User;
-use App\Models\training\EmployeeTrainingEnrollment;
-use App\Models\training\TrainingSession;
+use App\Domain\Client\Models\User;
+use App\Domain\Training\Models\EmployeeTrainingEnrollment;
+use App\Domain\Training\Models\TrainingSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EmployeeTrainingEnrollmentFactory extends Factory

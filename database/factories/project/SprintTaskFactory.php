@@ -2,16 +2,13 @@
 
 namespace Database\Factories\project;
 
-use App\Models\project\PriorityLevel;
-use App\Models\project\Project;
-use App\Models\project\Sprint;
-use App\Models\project\SprintTask;
-use App\Models\project\Task;
+use App\Domain\Project\Models\PriorityLevel;
+use App\Domain\Project\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SprintTaskFactory extends Factory
 {
-    protected $model = SprintTask::class;
+    protected $model = \App\Domain\Project\Models\SprintTask::class;
     /**
      * Define the model's default state.
      *
@@ -19,8 +16,8 @@ class SprintTaskFactory extends Factory
      */
     public function definition(): array
     {
-        $project = Project::query()->inRandomOrder()->first();
-        $sprint = Sprint::query()->where('project_id', $project->id)->inRandomOrder()
+        $project = \App\Domain\Project\Models\Project::query()->inRandomOrder()->first();
+        $sprint = \App\Domain\Project\Models\Sprint::query()->where('project_id', $project->id)->inRandomOrder()
             ->first() ?? SprintFactory::new(['project_id' => $project->id])->create();
         $task = Task::query()->where('project_id', $project->id)->inRandomOrder()
             ->first() ?? TaskFactory::new(['project_id' => $project->id])->create();

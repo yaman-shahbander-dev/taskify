@@ -2,8 +2,7 @@
 
 namespace Database\Factories\training;
 
-use App\Models\training\TrainingCourse;
-use App\Models\training\TrainingMaterial;
+use App\Domain\Training\Models\TrainingMaterial;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TrainingMaterialFactory extends Factory
@@ -18,7 +17,7 @@ class TrainingMaterialFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'course_id' => TrainingCourse::query()->inRandomOrder()->first()->id,
+            'course_id' => \App\Domain\Training\Models\TrainingCourse::query()->inRandomOrder()->first()->id,
             'material_type' => 'file',
             'file_path' => fake()->filePath(),
             'created_at' => now(),

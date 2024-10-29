@@ -2,14 +2,13 @@
 
 namespace Database\Factories\company;
 
-use App\Models\client\User;
-use App\Models\company\TeamMemberRole;
+use App\Domain\Client\Models\User;
+use App\Domain\Company\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\company\Role;
 
 class TeamMemberRoleFactory extends Factory
 {
-    protected $model = TeamMemberRole::class;
+    protected $model = \App\Domain\Company\Models\TeamMemberRole::class;
     /**
      * Define the model's default state.
      *

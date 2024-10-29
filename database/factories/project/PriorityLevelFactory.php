@@ -2,12 +2,11 @@
 
 namespace Database\Factories\project;
 
-use App\Models\project\PriorityLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PriorityLevelFactory extends Factory
 {
-    protected $model = PriorityLevel::class;
+    protected $model = \App\Domain\Project\Models\PriorityLevel::class;
     /**
      * Define the model's default state.
      *

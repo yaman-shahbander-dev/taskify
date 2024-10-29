@@ -2,7 +2,7 @@
 
 namespace Database\Factories\client;
 
-use App\Models\client\ProficiencyLevel;
+use App\Domain\Client\Models\ProficiencyLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProficiencyLevelFactory extends Factory

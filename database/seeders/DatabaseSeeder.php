@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\client\AdminRoleSeeder;
+use Database\Seeders\client\AdminSeeder;
+use Database\Seeders\client\PermissionSeeder;
 use Database\Seeders\client\ProficiencyLevelSeeder;
+use Database\Seeders\client\RolePermissionSeeder;
 use Database\Seeders\client\SkillSeeder;
 use Database\Seeders\client\UserSeeder;
 use Database\Seeders\client\UserSkillSeeder;
@@ -85,10 +89,14 @@ class DatabaseSeeder extends Seeder
             AttendanceRecordSeeder::class,
         ];
 
-        $seeders = [];
-
+        $seeders = [
+            AdminSeeder::class,
+            PermissionSeeder::class,
+            RolePermissionSeeder::class,
+            AdminRoleSeeder::class,
+        ];
         if (!app()->environment('production')) {
-            $seeders = array_merge($seeders, $devSeeders);
+            $seeders = array_merge($devSeeders, $seeders);
         }
 
         Schema::disableForeignKeyConstraints();

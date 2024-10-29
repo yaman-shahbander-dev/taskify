@@ -2,14 +2,12 @@
 
 namespace Database\Factories\company;
 
-use App\Models\company\Company;
-use App\Models\company\CompanyDepartment;
-use App\Models\company\DepartmentTeam;
+use App\Domain\Company\Models\CompanyDepartment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DepartmentTeamFactory extends Factory
 {
-    protected $model = DepartmentTeam::class;
+    protected $model = \App\Domain\Company\Models\DepartmentTeam::class;
 
     /**
      * Define the model's default state.

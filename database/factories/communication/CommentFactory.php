@@ -2,8 +2,8 @@
 
 namespace Database\Factories\communication;
 
-use App\Models\client\User;
-use App\Models\communication\Comment;
+use App\Domain\Client\Models\User;
+use App\Domain\Communication\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory

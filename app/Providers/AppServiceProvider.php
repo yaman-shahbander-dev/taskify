@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Domain\Client\Models\User;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
             database_path() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR . 'finance',
             database_path() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR . 'project',
             database_path() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR . 'training',
+        ]);
+
+        Relation::enforceMorphMap([
+            'user' => User::class,
         ]);
     }
 }

@@ -2,8 +2,7 @@
 
 namespace Database\Factories\company;
 
-use App\Models\company\Company;
-use App\Models\company\CompanyDepartment;
+use App\Domain\Company\Models\CompanyDepartment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyDepartmentFactory extends Factory
@@ -19,7 +18,7 @@ class CompanyDepartmentFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'company_id' => Company::query()->inRandomOrder()->first()->id,
+            'company_id' => \App\Domain\Company\Models\Company::query()->inRandomOrder()->first()->id,
             'name' => fake()->name,
             'created_at' => now(),
             'updated_at' => now(),

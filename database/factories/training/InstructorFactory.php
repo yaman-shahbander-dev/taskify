@@ -2,7 +2,7 @@
 
 namespace Database\Factories\training;
 
-use App\Models\training\Instructor;
+use App\Domain\Training\Models\Instructor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InstructorFactory extends Factory

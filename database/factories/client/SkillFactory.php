@@ -2,12 +2,11 @@
 
 namespace Database\Factories\client;
 
-use App\Models\client\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SkillFactory extends Factory
 {
-    protected $model = Skill::class;
+    protected $model = \App\Domain\Client\Models\Skill::class;
 
     /**
      * Define the model's default state.

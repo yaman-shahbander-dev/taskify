@@ -2,8 +2,7 @@
 
 namespace Database\Factories\project;
 
-use App\Models\project\Sprint;
-use App\Models\project\SprintChangeLog;
+use App\Domain\Project\Models\SprintChangeLog;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SprintChangeLogFactory extends Factory
@@ -18,7 +17,7 @@ class SprintChangeLogFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'sprint_id' => Sprint::query()->inRandomOrder()->first()->id,
+            'sprint_id' => \App\Domain\Project\Models\Sprint::query()->inRandomOrder()->first()->id,
             'change_description' => fake()->sentence,
             'date' => fake()->dateTime(),
             'affected_tasks' => fake()->word,

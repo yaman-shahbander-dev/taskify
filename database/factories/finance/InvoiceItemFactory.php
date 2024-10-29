@@ -2,8 +2,8 @@
 
 namespace Database\Factories\finance;
 
-use App\Models\finance\Invoice;
-use App\Models\finance\InvoiceItem;
+use App\Domain\Finance\Models\Invoice;
+use App\Domain\Finance\Models\InvoiceItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceItemFactory extends Factory
