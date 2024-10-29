@@ -2,9 +2,8 @@
 
 namespace Database\Factories\training;
 
-use App\Models\training\CourseInstructor;
-use App\Models\training\Instructor;
-use App\Models\training\TrainingCourse;
+use App\Domain\Training\Models\CourseInstructor;
+use App\Domain\Training\Models\TrainingCourse;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CourseInstructorFactory extends Factory
@@ -20,7 +19,7 @@ class CourseInstructorFactory extends Factory
         return [
             'id' => fake()->unique()->uuid(),
             'course_id' => TrainingCourse::query()->inRandomOrder()->first()->id,
-            'instructor_id' => Instructor::query()->inRandomOrder()->first()->id,
+            'instructor_id' => \App\Domain\Training\Models\Instructor::query()->inRandomOrder()->first()->id,
             'created_at' => now(),
             'updated_at' => now(),
         ];

@@ -2,12 +2,11 @@
 
 namespace Database\Factories\finance;
 
-use App\Models\finance\Currency;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CurrencyFactory extends Factory
 {
-    protected $model = Currency::class;
+    protected $model = \App\Domain\Finance\Models\Currency::class;
     /**
      * Define the model's default state.
      *

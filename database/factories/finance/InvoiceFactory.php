@@ -2,12 +2,11 @@
 
 namespace Database\Factories\finance;
 
-use App\Models\finance\Invoice;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceFactory extends Factory
 {
-    protected $model = Invoice::class;
+    protected $model = \App\Domain\Finance\Models\Invoice::class;
     /**
      * Define the model's default state.
      *

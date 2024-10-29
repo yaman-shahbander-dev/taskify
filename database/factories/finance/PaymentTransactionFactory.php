@@ -2,14 +2,13 @@
 
 namespace Database\Factories\finance;
 
-use App\Models\client\User;
-use App\Models\finance\Invoice;
-use App\Models\finance\PaymentTransaction;
+use App\Domain\Client\Models\User;
+use App\Domain\Finance\Models\Invoice;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PaymentTransactionFactory extends Factory
 {
-    protected $model = PaymentTransaction::class;
+    protected $model = \App\Domain\Finance\Models\PaymentTransaction::class;
     /**
      * Define the model's default state.
      *

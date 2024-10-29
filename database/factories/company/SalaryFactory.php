@@ -2,9 +2,9 @@
 
 namespace Database\Factories\company;
 
-use App\Models\client\User;
-use App\Models\company\Salary;
-use App\Models\finance\Currency;
+use App\Domain\Client\Models\User;
+use App\Domain\Company\Models\Salary;
+use App\Domain\Finance\Models\Currency;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SalaryFactory extends Factory

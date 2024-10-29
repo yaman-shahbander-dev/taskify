@@ -2,11 +2,11 @@
 
 namespace Database\Factories\client;
 
-use App\Models\client\ProficiencyLevel;
-use App\Models\client\Skill;
-use App\Models\client\User;
-use App\Models\client\UserSkill;
+use App\Domain\Client\Models\ProficiencyLevel;
+use App\Domain\Client\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Client\Models\UserSkill;
+use App\Domain\Client\Models\Skill;
 
 class UserSkillFactory extends Factory
 {

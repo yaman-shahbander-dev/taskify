@@ -2,8 +2,8 @@
 
 namespace Database\Factories\training;
 
-use App\Models\company\Company;
-use App\Models\training\TrainingCourse;
+use App\Domain\Company\Models\Company;
+use App\Domain\Training\Models\TrainingCourse;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TrainingCourseFactory extends Factory

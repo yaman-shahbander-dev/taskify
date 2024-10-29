@@ -2,9 +2,7 @@
 
 namespace Database\Factories\project;
 
-use App\Models\project\Project;
-use App\Models\project\Sprint;
-use App\Models\project\SprintReview;
+use App\Domain\Project\Models\SprintReview;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SprintReviewFactory extends Factory
@@ -19,7 +17,7 @@ class SprintReviewFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'sprint_id' => Sprint::query()->inRandomOrder()->first()->id,
+            'sprint_id' => \App\Domain\Project\Models\Sprint::query()->inRandomOrder()->first()->id,
             'date' => fake()->dateTime(),
             'summary' => fake()->sentence,
             'feedback' => fake()->sentence,

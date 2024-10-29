@@ -2,15 +2,14 @@
 
 namespace Database\Factories\project;
 
-use App\Models\client\User;
-use App\Models\project\PriorityLevel;
-use App\Models\project\Project;
-use App\Models\project\Task;
+use App\Domain\Client\Models\User;
+use App\Domain\Project\Models\PriorityLevel;
+use App\Domain\Project\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TaskFactory extends Factory
 {
-    protected $model = Task::class;
+    protected $model = \App\Domain\Project\Models\Task::class;
     /**
      * Define the model's default state.
      *

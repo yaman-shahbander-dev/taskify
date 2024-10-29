@@ -2,8 +2,7 @@
 
 namespace Database\Factories\project;
 
-use App\Models\project\Sprint;
-use App\Models\project\SprintRetrospective;
+use App\Domain\Project\Models\SprintRetrospective;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SprintRetrospectiveFactory extends Factory
@@ -18,7 +17,7 @@ class SprintRetrospectiveFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'sprint_id' => Sprint::query()->inRandomOrder()->first()->id,
+            'sprint_id' => \App\Domain\Project\Models\Sprint::query()->inRandomOrder()->first()->id,
             'date' => fake()->dateTime(),
             'what_went_well' => fake()->sentence,
             'what_can_improve' => fake()->sentence,
