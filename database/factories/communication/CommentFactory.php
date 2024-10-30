@@ -2,8 +2,8 @@
 
 namespace Database\Factories\communication;
 
-use App\Domain\Client\Models\User;
-use App\Domain\Communication\Models\Comment;
+use App\Domain\Client\Projections\User;
+use App\Domain\Communication\Projections\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
@@ -25,5 +25,19 @@ class CommentFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Communication\Projections\Comment
+     */
+    public function createWritable(array $attributes = []): Comment
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

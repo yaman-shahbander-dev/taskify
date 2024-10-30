@@ -14,6 +14,8 @@ class TeamMemberSeeder extends Seeder
     public function run(): void
     {
         DB::table('team_members')->truncate();
-        TeamMemberFactory::new()->count(10)->create();
+        TeamMemberFactory::new()->count(10)->make()->each(function ($teamMember) {
+            $teamMember->writeable()->save();
+        });
     }
 }

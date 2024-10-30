@@ -2,13 +2,16 @@
 
 namespace Database\Factories\project;
 
-use App\Domain\Project\Models\PriorityLevel;
-use App\Domain\Project\Models\Task;
+use App\Domain\Project\Projections\PriorityLevel;
+use App\Domain\Project\Projections\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Project\Projections\SprintTask;
+use App\Domain\Project\Projections\Project;
+use App\Domain\Project\Projections\Sprint;
 
 class SprintTaskFactory extends Factory
 {
-    protected $model = \App\Domain\Project\Models\SprintTask::class;
+    protected $model = SprintTask::class;
     /**
      * Define the model's default state.
      *
@@ -16,13 +19,13 @@ class SprintTaskFactory extends Factory
      */
     public function definition(): array
     {
-        $project = \App\Domain\Project\Models\Project::query()->inRandomOrder()->first();
-        $sprint = \App\Domain\Project\Models\Sprint::query()->where('project_id', $project->id)->inRandomOrder()
-            ->first() ?? SprintFactory::new(['project_id' => $project->id])->create();
+        $project = Project::query()->inRandomOrder()->first();
+        $sprint = Sprint::query()->where('project_id', $project->id)->inRandomOrder()
+            ->first() ?? SprintFactory::new()->createWritable(['project_id' => $project->id]);
         $task = Task::query()->where('project_id', $project->id)->inRandomOrder()
-            ->first() ?? TaskFactory::new(['project_id' => $project->id])->create();
+            ->first() ?? TaskFactory::new()->createWritable(['project_id' => $project->id]);
         $priority = PriorityLevel::query()->inRandomOrder()->first()
-            ?? PriorityLevelFactory::new()->create();
+            ?? PriorityLevelFactory::new()->createWritable();
 
         return [
             'id' => fake()->unique()->uuid(),
@@ -33,5 +36,19 @@ class SprintTaskFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Project\Projections\SprintTask
+     */
+    public function createWritable(array $attributes = []): SprintTask
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

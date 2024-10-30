@@ -14,6 +14,8 @@ class ProficiencyLevelSeeder extends Seeder
     public function run(): void
     {
         DB::table('proficiency_levels')->truncate();
-        ProficiencyLevelFactory::new()->count(10)->create();
+        ProficiencyLevelFactory::new()->count(10)->make()->each(function ($proficiencyLevel) {
+            $proficiencyLevel->writeable()->save();
+        });
     }
 }

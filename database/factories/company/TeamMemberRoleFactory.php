@@ -2,13 +2,14 @@
 
 namespace Database\Factories\company;
 
-use App\Domain\Client\Models\User;
-use App\Domain\Company\Models\Role;
+use App\Domain\Client\Projections\User;
+use App\Domain\Company\Projections\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Company\Projections\TeamMemberRole;
 
 class TeamMemberRoleFactory extends Factory
 {
-    protected $model = \App\Domain\Company\Models\TeamMemberRole::class;
+    protected $model = TeamMemberRole::class;
     /**
      * Define the model's default state.
      *
@@ -23,5 +24,19 @@ class TeamMemberRoleFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Company\Projections\TeamMemberRole
+     */
+    public function createWritable(array $attributes = []): TeamMemberRole
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

@@ -14,6 +14,8 @@ class CourseInstructorSeeder extends Seeder
     public function run(): void
     {
         DB::table('course_instructors')->truncate();
-        CourseInstructorFactory::new()->count(10)->create();
+        CourseInstructorFactory::new()->count(10)->make()->each(function ($courseInstructor) {
+            $courseInstructor->writeable()->save();
+        });
     }
 }

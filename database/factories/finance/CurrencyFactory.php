@@ -3,10 +3,11 @@
 namespace Database\Factories\finance;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Finance\Projections\Currency;
 
 class CurrencyFactory extends Factory
 {
-    protected $model = \App\Domain\Finance\Models\Currency::class;
+    protected $model = Currency::class;
     /**
      * Define the model's default state.
      *
@@ -21,5 +22,19 @@ class CurrencyFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Finance\Projections\Currency
+     */
+    public function createWritable(array $attributes = []): Currency
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

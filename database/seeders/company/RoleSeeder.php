@@ -15,6 +15,8 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         DB::table('roles')->truncate();
-        RoleFactory::new()->count(10)->create();
+        RoleFactory::new()->count(10)->make()->each(function ($role) {
+            $role->writeable()->save();
+        });
     }
 }

@@ -14,6 +14,8 @@ class CompanySeeder extends Seeder
     public function run(): void
     {
         DB::table('companies')->truncate();
-        CompanyFactory::new()->count(10)->create();
+        CompanyFactory::new()->count(10)->make()->each(function ($company) {
+            $company->writeable()->save();
+        });
     }
 }

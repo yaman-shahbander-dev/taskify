@@ -1,5 +1,7 @@
 <?php
 
+use App\Domain\Client\Events\UserRegistered;
+
 return [
 
     /*
@@ -22,7 +24,7 @@ return [
      * Projectors can be registered in this array or a service provider.
      */
     'projectors' => [
-        // App\Projectors\YourProjector::class
+        App\Domain\Client\Projectors\UserProjector::class,
     ],
 
     /*
@@ -50,7 +52,7 @@ return [
     /*
      * This class is responsible for storing events in the EloquentStoredEventRepository.
      * To add extra behaviour you can change this to a class of your own. It should
-     * extend the \Spatie\EventSourcing\StoredEvents\Models\EloquentStoredEvent model.
+     * extend the \Spatie\EventSourcing\StoredEvents\Projections\EloquentStoredEvent model.
      */
     'stored_event_model' => Spatie\EventSourcing\StoredEvents\Models\EloquentStoredEvent::class,
 
@@ -87,14 +89,16 @@ return [
      * corresponding alias defined. Otherwise, an exception is thrown
      * if you try to persist an event without alias.
      */
-    'enforce_event_class_map' => false,
+    'enforce_event_class_map' => true,
 
     /*
      * Similar to Relation::morphMap() you can define which alias responds to which
      * event class. This allows you to change the namespace or class names
      * of your events but still handle older events correctly.
      */
-    'event_class_map' => [],
+    'event_class_map' => [
+        'user_registered' => UserRegistered::class,
+    ],
 
     /*
      * This class is responsible for serializing events. By default an event will be serialized

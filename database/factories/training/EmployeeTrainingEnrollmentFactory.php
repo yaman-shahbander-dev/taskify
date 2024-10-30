@@ -2,9 +2,9 @@
 
 namespace Database\Factories\training;
 
-use App\Domain\Client\Models\User;
-use App\Domain\Training\Models\EmployeeTrainingEnrollment;
-use App\Domain\Training\Models\TrainingSession;
+use App\Domain\Client\Projections\User;
+use App\Domain\Training\Projections\EmployeeTrainingEnrollment;
+use App\Domain\Training\Projections\TrainingSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EmployeeTrainingEnrollmentFactory extends Factory
@@ -25,5 +25,19 @@ class EmployeeTrainingEnrollmentFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Training\Projections\EmployeeTrainingEnrollment
+     */
+    public function createWritable(array $attributes = []): EmployeeTrainingEnrollment
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

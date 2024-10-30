@@ -14,6 +14,8 @@ class InvoiceSeeder extends Seeder
     public function run(): void
     {
         DB::table('invoices')->truncate();
-        InvoiceFactory::new()->count(100)->create();
+        InvoiceFactory::new()->count(100)->make()->each(function ($invoice) {
+            $invoice->writeable()->save();
+        });
     }
 }

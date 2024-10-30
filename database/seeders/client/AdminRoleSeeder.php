@@ -3,9 +3,9 @@
 namespace Database\Seeders\client;
 
 use App\Domain\Client\Enums\RolesEnum;
-use App\Domain\Client\Models\ERole;
+use App\Domain\Client\Projections\ERole;
 use Illuminate\Database\Seeder;
-use App\Domain\Client\Models\User;
+use App\Domain\Client\Projections\User;
 use Illuminate\Support\Facades\DB;
 
 class AdminRoleSeeder extends Seeder

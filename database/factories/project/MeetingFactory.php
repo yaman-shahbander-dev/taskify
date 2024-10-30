@@ -3,10 +3,12 @@
 namespace Database\Factories\project;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Project\Projections\Meeting;
+use App\Domain\Project\Projections\Project;
 
 class MeetingFactory extends Factory
 {
-    protected $model = \App\Domain\Project\Models\Meeting::class;
+    protected $model = Meeting::class;
     /**
      * Define the model's default state.
      *
@@ -16,7 +18,7 @@ class MeetingFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'project_id' => \App\Domain\Project\Models\Project::query()->inRandomOrder()->first()->id,
+            'project_id' => Project::query()->inRandomOrder()->first()->id,
             'title' => fake()->word,
             'agenda' => fake()->sentence,
             'date' => fake()->dateTime(),
@@ -25,5 +27,19 @@ class MeetingFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Project\Projections\Meeting
+     */
+    public function createWritable(array $attributes = []): Meeting
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

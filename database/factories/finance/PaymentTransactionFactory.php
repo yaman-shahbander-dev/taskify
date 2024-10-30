@@ -2,13 +2,14 @@
 
 namespace Database\Factories\finance;
 
-use App\Domain\Client\Models\User;
-use App\Domain\Finance\Models\Invoice;
+use App\Domain\Client\Projections\User;
+use App\Domain\Finance\Projections\Invoice;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Finance\Projections\PaymentTransaction;
 
 class PaymentTransactionFactory extends Factory
 {
-    protected $model = \App\Domain\Finance\Models\PaymentTransaction::class;
+    protected $model = PaymentTransaction::class;
     /**
      * Define the model's default state.
      *
@@ -28,5 +29,19 @@ class PaymentTransactionFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Finance\Projections\PaymentTransaction
+     */
+    public function createWritable(array $attributes = []): PaymentTransaction
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

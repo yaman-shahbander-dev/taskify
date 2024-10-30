@@ -2,14 +2,15 @@
 
 namespace Database\Factories\project;
 
-use App\Domain\Company\Models\Company;
-use App\Domain\Company\Models\CompanyDepartment;
+use App\Domain\Company\Projections\Company;
+use App\Domain\Company\Projections\CompanyDepartment;
 use Database\Factories\company\CompanyDepartmentFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Project\Projections\Project;
 
 class ProjectFactory extends Factory
 {
-    protected $model = \App\Domain\Project\Models\Project::class;
+    protected $model = Project::class;
     /**
      * Define the model's default state.
      *
@@ -19,7 +20,7 @@ class ProjectFactory extends Factory
     {
         $company = Company::query()->inRandomOrder()->first();
         $department = CompanyDepartment::query()->where('company_id')->first()
-            ?? CompanyDepartmentFactory::new(['company_id' => $company->id])->create();
+            ?? CompanyDepartmentFactory::new()->createWritable(['company_id' => $company->id]);
 
         return [
             'id' => fake()->unique()->uuid(),
@@ -30,5 +31,19 @@ class ProjectFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Project\Projections\Project
+     */
+    public function createWritable(array $attributes = []): Project
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

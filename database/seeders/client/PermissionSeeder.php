@@ -2,8 +2,8 @@
 
 namespace Database\Seeders\client;
 
-use App\Domain\Client\Models\EPermission;
-use App\Domain\Client\Models\ERole;
+use App\Domain\Client\Projections\EPermission;
+use App\Domain\Client\Projections\ERole;
 use Illuminate\Database\Seeder;
 use App\Domain\Client\Enums\PermissionsEnum;
 use App\Domain\Client\Enums\RolesEnum;

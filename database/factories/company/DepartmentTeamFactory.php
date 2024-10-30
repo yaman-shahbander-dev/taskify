@@ -2,12 +2,13 @@
 
 namespace Database\Factories\company;
 
-use App\Domain\Company\Models\CompanyDepartment;
+use App\Domain\Company\Projections\CompanyDepartment;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Company\Projections\DepartmentTeam;
 
 class DepartmentTeamFactory extends Factory
 {
-    protected $model = \App\Domain\Company\Models\DepartmentTeam::class;
+    protected $model = DepartmentTeam::class;
 
     /**
      * Define the model's default state.
@@ -23,5 +24,19 @@ class DepartmentTeamFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Company\Projections\DepartmentTeam
+     */
+    public function createWritable(array $attributes = []): DepartmentTeam
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

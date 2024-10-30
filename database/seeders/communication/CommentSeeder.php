@@ -14,6 +14,8 @@ class CommentSeeder extends Seeder
     public function run(): void
     {
         DB::table('comments')->truncate();
-        CommentFactory::new()->count(10)->create();
+        CommentFactory::new()->count(10)->make()->each(function ($comment) {
+            $comment->writeable()->save();
+        });
     }
 }

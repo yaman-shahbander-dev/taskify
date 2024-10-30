@@ -14,6 +14,8 @@ class TrainingCourseSeeder extends Seeder
     public function run(): void
     {
         DB::table('training_courses')->truncate();
-        TrainingCourseFactory::new()->count(10)->create();
+        TrainingCourseFactory::new()->count(10)->make()->each(function ($trainingCourse) {
+            $trainingCourse->writeable()->save();
+        });;
     }
 }

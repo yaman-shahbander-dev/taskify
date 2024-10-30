@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
-use App\Domain\Client\Models\User;
+use App\Domain\Client\Builders\UserDataBuilder;
+use App\Domain\Client\Contracts\UserDataBuilderContract;
+use App\Domain\Client\Projections\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use App\Domain\Client\Events\UserRegistered;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(UserDataBuilderContract::class, UserDataBuilder::class);
     }
 
     /**
@@ -32,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
         Relation::enforceMorphMap([
             'user' => User::class,
+            'user_registered' => UserRegistered::class,
         ]);
     }
 }

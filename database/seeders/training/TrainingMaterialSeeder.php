@@ -14,6 +14,8 @@ class TrainingMaterialSeeder extends Seeder
     public function run(): void
     {
         DB::table('training_materials')->truncate();
-        TrainingMaterialFactory::new()->count(5)->create();
+        TrainingMaterialFactory::new()->count(5)->make()->each(function ($trainingMaterial) {
+            $trainingMaterial->writeable()->save();
+        });;
     }
 }

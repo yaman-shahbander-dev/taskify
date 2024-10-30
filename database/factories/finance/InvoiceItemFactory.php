@@ -2,8 +2,8 @@
 
 namespace Database\Factories\finance;
 
-use App\Domain\Finance\Models\Invoice;
-use App\Domain\Finance\Models\InvoiceItem;
+use App\Domain\Finance\Projections\Invoice;
+use App\Domain\Finance\Projections\InvoiceItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceItemFactory extends Factory
@@ -25,5 +25,19 @@ class InvoiceItemFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Finance\Projections\InvoiceItem
+     */
+    public function createWritable(array $attributes = []): InvoiceItem
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

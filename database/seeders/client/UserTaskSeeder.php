@@ -14,6 +14,8 @@ class UserTaskSeeder extends Seeder
     public function run(): void
     {
         DB::table('user_tasks')->truncate();
-        UserTaskFactory::new()->count(30)->create();
+        UserTaskFactory::new()->count(30)->make()->each(function ($userTask) {
+            $userTask->writeable()->save();
+        });
     }
 }

@@ -14,6 +14,8 @@ class CompanyDepartmentSeeder extends Seeder
     public function run(): void
     {
         DB::table('company_departments')->truncate();
-        CompanyDepartmentFactory::new()->count(30)->create();
+        CompanyDepartmentFactory::new()->count(30)->make()->each(function ($companyDepartment) {
+            $companyDepartment->writeable()->save();
+        });
     }
 }

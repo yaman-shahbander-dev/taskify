@@ -12,7 +12,7 @@ class CompanyData extends BaseData
 {
     public function __construct(
         public ?string $id,
-        public string $name,
+        public ?string $name,
         public string $address,
         public string $contactNumber,
         public ?CarbonImmutable $createdAt,

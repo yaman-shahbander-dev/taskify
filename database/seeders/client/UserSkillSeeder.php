@@ -14,6 +14,8 @@ class UserSkillSeeder extends Seeder
     public function run(): void
     {
         DB::table('user_skills')->truncate();
-        UserSkillFactory::new()->count(30)->create();
+        UserSkillFactory::new()->count(30)->make()->each(function ($userSkill) {
+            $userSkill->writeable()->save();
+        });
     }
 }

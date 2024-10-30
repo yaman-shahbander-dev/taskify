@@ -2,11 +2,14 @@
 
 namespace App\Application\Company\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Support\Bases\BaseRequest;
+use App\Support\Traits\ResponseTrait;
 use Illuminate\Validation\Rule;
 
-class RegisterUserRequest extends FormRequest
+class RegisterUserRequest extends BaseRequest
 {
+    use ResponseTrait;
+
     public function authorize(): true
     {
         return true;

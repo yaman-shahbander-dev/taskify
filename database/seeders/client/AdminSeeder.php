@@ -3,7 +3,7 @@
 namespace Database\Seeders\client;
 
 use Illuminate\Database\Seeder;
-use App\Domain\Client\Models\User;
+use App\Domain\Client\Projections\User;
 use Illuminate\Support\Str;
 
 class AdminSeeder extends Seeder
@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::query()->firstOrCreate([
+        app(User::class)->writeable()->firstOrCreate([
             'email' => 'admin@admin.com',
         ], [
             'name' => 'Admin',

@@ -14,6 +14,8 @@ class TeamMemberRoleSeeder extends Seeder
     public function run(): void
     {
         DB::table('team_member_roles')->truncate();
-        TeamMemberRoleFactory::new()->count(20)->create();
+        TeamMemberRoleFactory::new()->count(20)->make()->each(function ($teamMemberRole) {
+            $teamMemberRole->writeable()->save();
+        });
     }
 }

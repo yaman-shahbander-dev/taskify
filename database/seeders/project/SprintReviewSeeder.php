@@ -14,6 +14,8 @@ class SprintReviewSeeder extends Seeder
     public function run(): void
     {
         DB::table('sprint_reviews')->truncate();
-        SprintReviewFactory::new()->count(5)->create();
+        SprintReviewFactory::new()->count(5)->make()->each(function ($sprintReview) {
+            $sprintReview->writeable()->save();
+        });
     }
 }
