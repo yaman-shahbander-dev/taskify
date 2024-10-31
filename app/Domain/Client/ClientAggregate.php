@@ -15,6 +15,7 @@ class ClientAggregate extends BaseAggregate
     public function registerUser(UserData $data): static
     {
         $this->generateAndAssignIds($data);
+        $this->generateDefaultNames($data);
 
         $this->recordThat(new UserRegistered($data));
         $this->recordThat(new CompanyCreated($data->companyData));
@@ -33,5 +34,12 @@ class ClientAggregate extends BaseAggregate
 
         $data->companyDepartmentData->companyId = $data->companyData->id;
         $data->departmentTeamData->departmentId = $data->companyDepartmentData->id;
+    }
+
+    protected function generateDefaultNames(UserData $data): void
+    {
+        $data->companyData->name = 'default company #' . time();
+        $data->companyDepartmentData->name = 'default company department #' . time();
+        $data->departmentTeamData->name = 'default department team #' . time();
     }
 }

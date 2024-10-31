@@ -14,8 +14,6 @@ class CompanyProjector extends BaseProjector
 {
     public function onCompanyCreated(CompanyCreated $event)
     {
-        $event->data->name = 'default company #' . time();
-
         return app(CreateCompanyAction::class)(
             $event->data->id,
             $event->data->name,
@@ -26,8 +24,6 @@ class CompanyProjector extends BaseProjector
 
     public function onCompanyDepartmentCreated(CompanyDepartmentCreated $event)
     {
-        $event->data->name = 'default company department #' . time();
-
         return app(CreateCompanyDepartmentAction::class)(
             $event->data->id,
             $event->data->companyId,
@@ -37,8 +33,6 @@ class CompanyProjector extends BaseProjector
 
     public function onDepartmentTeamCreated(DepartmentTeamCreated $event)
     {
-        $event->data->name = 'default department team #' . time();
-
         return app(CreateDepartmentTeamAction::class)(
             $event->data->id,
             $event->data->departmentId,
