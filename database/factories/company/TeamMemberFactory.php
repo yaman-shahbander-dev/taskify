@@ -2,9 +2,9 @@
 
 namespace Database\Factories\company;
 
-use App\Domain\Client\Models\User;
-use App\Domain\Company\Models\DepartmentTeam;
-use App\Domain\Company\Models\TeamMember;
+use App\Domain\Client\Projections\User;
+use App\Domain\Company\Projections\DepartmentTeam;
+use App\Domain\Company\Projections\TeamMember;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TeamMemberFactory extends Factory
@@ -24,5 +24,19 @@ class TeamMemberFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Company\Projections\TeamMember
+     */
+    public function createWritable(array $attributes = []): TeamMember
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

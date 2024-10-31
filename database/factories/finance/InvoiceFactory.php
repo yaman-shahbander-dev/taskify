@@ -3,10 +3,11 @@
 namespace Database\Factories\finance;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Finance\Projections\Invoice;
 
 class InvoiceFactory extends Factory
 {
-    protected $model = \App\Domain\Finance\Models\Invoice::class;
+    protected $model = Invoice::class;
     /**
      * Define the model's default state.
      *
@@ -23,5 +24,19 @@ class InvoiceFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Finance\Projections\Invoice
+     */
+    public function createWritable(array $attributes = []): Invoice
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

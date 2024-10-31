@@ -14,6 +14,8 @@ class AttendanceRecordSeeder extends Seeder
     public function run(): void
     {
         DB::table('attendance_records')->truncate();
-        AttendanceRecordFactory::new()->count(10)->create();
+        AttendanceRecordFactory::new()->count(10)->make()->each(function ($attendanceRecord) {
+            $attendanceRecord->writeable()->save();
+        });
     }
 }

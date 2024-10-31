@@ -1,33 +1,195 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Test API",
-        "description": "API Documentation Test",
+        "title": "Taskify API",
+        "description": "API Documentation",
         "contact": {
-            "email": "support@mysite.com"
-        },
-        "license": {
-            "name": "Proprietary",
-            "url": ""
+            "email": "support@yaman.com"
         },
         "version": "1.0.0"
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://localhost:8000",
             "description": "API Server"
         }
     ],
     "paths": {
-        "/test": {
-            "get": {
-                "operationId": "8c679225a1e8478d550461677ce1a9cf",
+        "/company/client/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Register a company",
+                "description": "This endpoint registers a user company",
+                "operationId": "f5c53231a56689312439a8ab464d0759",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "123 John Street"
+                                    },
+                                    "contact_number": {
+                                        "type": "string",
+                                        "example": "+963996222469"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Failed operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to create user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
-    }
+    },
+    "components": {
+        "schemas": {
+            "RegisterUserResponse": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "data": {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "9d609e3f-5f8a-449d-a89c-018b704fedb8"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "yaman"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "yaman@gmail.com"
+                            },
+                            "company": {
+                                "$ref": "#/components/schemas/companyResponse"
+                            },
+                            "company_department": {
+                                "$ref": "#/components/schemas/companyDepartmentResponse"
+                            },
+                            "department_team": {
+                                "$ref": "#/components/schemas/departmentTeamResponse"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "companyDepartmentResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "company_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c241-4811-97e4-15cffe1ec71d"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "default company department #1730382974"
+                    }
+                },
+                "type": "object"
+            },
+            "companyResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c241-4811-97e4-15cffe1ec71d"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "default company #1730382974"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Yaman Street"
+                    },
+                    "contact_number": {
+                        "type": "string",
+                        "example": "+963996222469"
+                    }
+                },
+                "type": "object"
+            },
+            "departmentTeamResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c28e-4d18-a87b-5dbabda31632"
+                    },
+                    "department_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "default department team #1730382974"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Register",
+            "description": "Register"
+        }
+    ]
 }

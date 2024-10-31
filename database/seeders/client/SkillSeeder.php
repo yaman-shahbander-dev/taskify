@@ -14,6 +14,8 @@ class SkillSeeder extends Seeder
     public function run(): void
     {
         DB::table('skills')->truncate();
-        SkillFactory::new()->count(10)->create();
+        SkillFactory::new()->count(10)->make()->each(function ($skill) {
+            $skill->writeable()->save();
+        });
     }
 }

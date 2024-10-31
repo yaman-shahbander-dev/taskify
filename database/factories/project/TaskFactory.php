@@ -2,14 +2,15 @@
 
 namespace Database\Factories\project;
 
-use App\Domain\Client\Models\User;
-use App\Domain\Project\Models\PriorityLevel;
-use App\Domain\Project\Models\Project;
+use App\Domain\Client\Projections\User;
+use App\Domain\Project\Projections\PriorityLevel;
+use App\Domain\Project\Projections\Project;
+use App\Domain\Project\Projections\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TaskFactory extends Factory
 {
-    protected $model = \App\Domain\Project\Models\Task::class;
+    protected $model = \App\Domain\Project\Projections\Task::class;
     /**
      * Define the model's default state.
      *
@@ -28,5 +29,19 @@ class TaskFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Project\Projections\Task
+     */
+    public function createWritable(array $attributes = []): Task
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

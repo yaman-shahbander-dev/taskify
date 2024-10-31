@@ -15,6 +15,8 @@ class SprintSeeder extends Seeder
     public function run(): void
     {
         DB::table('sprints')->truncate();
-        SprintFactory::new()->count(4)->create();
+        SprintFactory::new()->count(4)->make()->each(function ($sprint) {
+            $sprint->writeable()->save();
+        });
     }
 }

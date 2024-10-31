@@ -14,6 +14,8 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         DB::table('projects')->truncate();
-        ProjectFactory::new()->count(10)->create();
+        ProjectFactory::new()->count(10)->make()->each(function ($project) {
+            $project->writeable()->save();
+        });
     }
 }

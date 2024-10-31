@@ -2,7 +2,7 @@
 
 namespace Database\Factories\client;
 
-use App\Domain\Client\Models\User;
+use App\Domain\Client\Projections\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -42,5 +42,19 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Client\Projections\User
+     */
+    public function createWritable(array $attributes = []): User
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

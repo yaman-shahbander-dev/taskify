@@ -16,6 +16,8 @@ class SalarySeeder extends Seeder
     public function run(): void
     {
         DB::table('salaries')->truncate();
-        SalaryFactory::new()->count(3)->create();
+        SalaryFactory::new()->count(3)->make()->each(function ($salary) {
+            $salary->writeable()->save();
+        });
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Database\Factories\project;
 
-use App\Domain\Project\Models\SprintChangeLog;
+use App\Domain\Project\Projections\SprintChangeLog;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Project\Projections\Sprint;
 
 class SprintChangeLogFactory extends Factory
 {
@@ -17,12 +18,26 @@ class SprintChangeLogFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
-            'sprint_id' => \App\Domain\Project\Models\Sprint::query()->inRandomOrder()->first()->id,
+            'sprint_id' => Sprint::query()->inRandomOrder()->first()->id,
             'change_description' => fake()->sentence,
             'date' => fake()->dateTime(),
             'affected_tasks' => fake()->word,
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Project\Projections\SprintChangeLog
+     */
+    public function createWritable(array $attributes = []): SprintChangeLog
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

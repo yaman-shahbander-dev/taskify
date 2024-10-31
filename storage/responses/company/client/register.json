@@ -1,0 +1,24 @@
+{
+    "message": "OK",
+    "data": {
+        "id": "9d609e3f-5f8a-449d-a89c-018b704fedb8",
+        "name": "yaman",
+        "email": "yaman@gmail.com",
+        "company": {
+            "id": "9d609e3f-c241-4811-97e4-15cffe1ec71d",
+            "name": "default company #1730382974",
+            "address": "Yaman Street",
+            "contact_number": "+963996222469"
+        },
+        "company_department": {
+            "id": "9d609e3f-c26d-4612-a1b4-71a60d2d6927",
+            "company_id": "9d609e3f-c241-4811-97e4-15cffe1ec71d",
+            "name": "default company department #1730382974"
+        },
+        "department_team": {
+            "id": "9d609e3f-c28e-4d18-a87b-5dbabda31632",
+            "department_id": "9d609e3f-c26d-4612-a1b4-71a60d2d6927",
+            "name": "default department team #1730382974"
+        }
+    }
+}

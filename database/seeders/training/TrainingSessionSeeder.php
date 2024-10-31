@@ -14,6 +14,8 @@ class TrainingSessionSeeder extends Seeder
     public function run(): void
     {
         DB::table('training_sessions')->truncate();
-        TrainingSessionFactory::new()->count(10)->create();
+        TrainingSessionFactory::new()->count(10)->make()->each(function ($trainingSession) {
+            $trainingSession->writeable()->save();
+        });;
     }
 }

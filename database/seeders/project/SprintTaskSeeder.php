@@ -16,6 +16,8 @@ class SprintTaskSeeder extends Seeder
     public function run(): void
     {
         DB::table('sprint_tasks')->truncate();
-        SprintTaskFactory::new()->count(5)->create();
+        SprintTaskFactory::new()->count(5)->make()->each(function ($sprintTask) {
+            $sprintTask->writeable()->save();
+        });
     }
 }

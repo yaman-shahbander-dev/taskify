@@ -14,6 +14,8 @@ class PaymentTransactionSeeder extends Seeder
     public function run(): void
     {
         DB::table('payment_transactions')->truncate();
-        PaymentTransactionFactory::new()->count(50)->create();
+        PaymentTransactionFactory::new()->count(50)->make()->each(function ($paymentTransaction) {
+            $paymentTransaction->writeable()->save();
+        });
     }
 }

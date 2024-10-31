@@ -3,10 +3,11 @@
 namespace Database\Factories\company;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Company\Projections\Company;
 
 class CompanyFactory extends Factory
 {
-    protected $model = \App\Domain\Company\Models\Company::class;
+    protected $model = Company::class;
     /**
      * Define the model's default state.
      *
@@ -22,5 +23,19 @@ class CompanyFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Company\Projections\Company
+     */
+    public function createWritable(array $attributes = []): Company
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

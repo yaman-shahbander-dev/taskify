@@ -14,6 +14,8 @@ class EmployeeTrainingEnrollmentSeeder extends Seeder
     public function run(): void
     {
         DB::table('employee_training_enrollments')->truncate();
-        EmployeeTrainingEnrollmentFactory::new()->count(10)->create();
+        EmployeeTrainingEnrollmentFactory::new()->count(10)->make()->each(function ($employeeTrainingEnrollment) {
+            $employeeTrainingEnrollment->writeable()->save();
+        });
     }
 }

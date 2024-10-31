@@ -3,10 +3,11 @@
 namespace Database\Factories\client;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Domain\Client\Projections\Skill;
 
 class SkillFactory extends Factory
 {
-    protected $model = \App\Domain\Client\Models\Skill::class;
+    protected $model = Skill::class;
 
     /**
      * Define the model's default state.
@@ -21,5 +22,19 @@ class SkillFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
         ];
+    }
+
+    /**
+     * Create a new instance of the factory with writable model.
+     *
+     * @param array $attributes
+     * @return \App\Domain\Client\Projections\Skill
+     */
+    public function createWritable(array $attributes = []): Skill
+    {
+        $model = $this->state($attributes)->make();
+        $model->writeable()->save();
+
+        return $model;
     }
 }

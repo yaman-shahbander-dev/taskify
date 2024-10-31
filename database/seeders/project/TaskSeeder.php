@@ -15,6 +15,8 @@ class TaskSeeder extends Seeder
     public function run(): void
     {
         DB::table('tasks')->truncate();
-        TaskFactory::new()->count(100)->create();
+        TaskFactory::new()->count(100)->make()->each(function ($task) {
+            $task->writeable()->save();
+        });
     }
 }

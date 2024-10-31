@@ -14,6 +14,8 @@ class MeetingSeeder extends Seeder
     public function run(): void
     {
         DB::table('meetings')->truncate();
-        MeetingFactory::new()->count(2)->create();
+        MeetingFactory::new()->count(2)->make()->each(function ($meeting) {
+            $meeting->writeable()->save();
+        });
     }
 }

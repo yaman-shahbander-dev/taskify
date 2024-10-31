@@ -15,6 +15,8 @@ class DepartmentTeamSeeder extends Seeder
     public function run(): void
     {
         DB::table('departments_teams')->truncate();
-        DepartmentTeamFactory::new()->count(30)->create();
+        DepartmentTeamFactory::new()->count(30)->make()->each(function ($departmentTeam) {
+            $departmentTeam->writeable()->save();
+        });
     }
 }

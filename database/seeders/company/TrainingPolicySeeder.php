@@ -16,6 +16,8 @@ class TrainingPolicySeeder extends Seeder
     public function run(): void
     {
         DB::table('training_policies')->truncate();
-        TrainingPolicyFactory::new()->count(3)->create();
+        TrainingPolicyFactory::new()->count(3)->make()->each(function ($trainingPolicy) {
+            $trainingPolicy->writeable()->save();
+        });
     }
 }

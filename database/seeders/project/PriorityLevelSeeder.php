@@ -14,6 +14,8 @@ class PriorityLevelSeeder extends Seeder
     public function run(): void
     {
         DB::table('priority_levels')->truncate();
-        PriorityLevelFactory::new()->count(10)->create();
+        PriorityLevelFactory::new()->count(10)->make()->each(function ($priorityLevel) {
+            $priorityLevel->writeable()->save();
+        });
     }
 }

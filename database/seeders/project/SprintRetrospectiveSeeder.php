@@ -14,6 +14,8 @@ class SprintRetrospectiveSeeder extends Seeder
     public function run(): void
     {
         DB::table('sprint_retrospectives')->truncate();
-        SprintRetrospectiveFactory::new()->count(5)->create();
+        SprintRetrospectiveFactory::new()->count(5)->make()->each(function ($sprintRetrospective) {
+            $sprintRetrospective->writeable()->save();
+        });
     }
 }

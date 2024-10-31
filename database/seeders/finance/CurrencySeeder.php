@@ -15,6 +15,8 @@ class CurrencySeeder extends Seeder
     public function run(): void
     {
         DB::table('currencies')->truncate();
-        CurrencyFactory::new()->count(100)->create();
+        CurrencyFactory::new()->count(100)->make()->each(function ($currency) {
+            $currency->writeable()->save();
+        });
     }
 }
