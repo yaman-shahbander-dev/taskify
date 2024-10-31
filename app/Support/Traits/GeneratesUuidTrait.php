@@ -21,4 +21,9 @@ trait GeneratesUuidTrait
             $model->{$keyName} = Str::orderedUuid()->toString();
         }
     }
+
+    public function generateUuid(): string
+    {
+        return Str::orderedUuid()->toString();
+    }
 }

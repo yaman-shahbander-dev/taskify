@@ -13,6 +13,8 @@ class CompanyDepartment extends Projection
 
     protected $table = 'company_departments';
 
+    protected $fillable = ['id', 'company_id', 'name'];
+
     public function getKeyName(): string
     {
         return 'id';

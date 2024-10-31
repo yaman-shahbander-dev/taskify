@@ -14,6 +14,8 @@ class Company extends Projection
 
     protected $table = 'companies';
 
+    protected $fillable = ['id', 'name', 'address', 'contact_number'];
+
     public function getKeyName(): string
     {
         return 'id';

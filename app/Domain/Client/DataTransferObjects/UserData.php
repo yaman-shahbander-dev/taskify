@@ -43,6 +43,8 @@ class UserData extends BaseData
                 'address' => $data['address'],
                 'contact_number' => $data['contact_number']
             ])
+            ->setCompanyDepartmentData([])
+            ->setDepartmentTeamData([])
             ->build();
     }
 }

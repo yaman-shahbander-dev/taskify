@@ -1,6 +1,10 @@
 <?php
 
 use App\Domain\Client\Events\UserRegistered;
+use App\Domain\Company\Events\CompanyCreated;
+use App\Domain\Company\Events\CompanyDepartmentCreated;
+use App\Domain\Company\Events\DepartmentTeamCreated;
+use App\Domain\Client\Events\CompanyRoleAssigned;
 
 return [
 
@@ -98,6 +102,10 @@ return [
      */
     'event_class_map' => [
         'user_registered' => UserRegistered::class,
+        'company_created' => CompanyCreated::class,
+        'company_department_created' => CompanyDepartmentCreated::class,
+        'department_team_created' => DepartmentTeamCreated::class,
+        'company_role_assigned' => CompanyRoleAssigned::class,
     ],
 
     /*

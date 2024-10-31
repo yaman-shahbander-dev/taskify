@@ -12,8 +12,8 @@ class CompanyDepartmentData extends BaseData
 {
     public function __construct(
         public ?string $id,
-        public string $companyId,
-        public string $name,
+        public ?string $companyId,
+        public ?string $name,
         public ?CarbonImmutable $createdAt,
         public ?CarbonImmutable $updatedAt,
     ) {

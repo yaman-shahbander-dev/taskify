@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Company\Http\Requests;
+namespace App\Application\Company\Http\Requests\Client;
 
 use App\Support\Bases\BaseRequest;
 use App\Support\Traits\ResponseTrait;

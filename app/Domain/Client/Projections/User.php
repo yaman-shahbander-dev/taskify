@@ -70,4 +70,9 @@ class User extends Projection
     {
         return 'id';
     }
+
+    protected function getDefaultGuardName(): string
+    {
+        return 'api';
+    }
 }
