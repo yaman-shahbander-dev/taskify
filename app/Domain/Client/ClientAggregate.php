@@ -2,6 +2,7 @@
 
 namespace App\Domain\Client;
 
+use App\Domain\Client\Events\AdminLoggedIn;
 use App\Domain\Client\Events\CompanyRoleAssigned;
 use App\Domain\Client\Events\UserRegistered;
 use App\Domain\Company\Events\CompanyCreated;
@@ -18,28 +19,36 @@ class ClientAggregate extends BaseAggregate
         $this->generateDefaultNames($data);
 
         $this->recordThat(new UserRegistered($data));
-        $this->recordThat(new CompanyCreated($data->companyData));
-        $this->recordThat(new CompanyDepartmentCreated($data->companyDepartmentData));
-        $this->recordThat(new DepartmentTeamCreated($data->departmentTeamData));
+        $this->recordThat(new CompanyCreated($data->companies));
+        $this->recordThat(new CompanyDepartmentCreated($data->departments));
+        $this->recordThat(new DepartmentTeamCreated($data->teams));
         $this->recordThat(new CompanyRoleAssigned($data->id));
+
+        return $this;
+    }
+
+    public function adminLogin(UserData $data): static
+    {
+        $this->recordThat(new AdminLoggedIn($data));
 
         return $this;
     }
 
     protected function generateAndAssignIds(UserData $data): void
     {
-        $data->companyData->id = $this->generateUuid();
-        $data->companyDepartmentData->id = $this->generateUuid();
-        $data->departmentTeamData->id = $this->generateUuid();
+        $data->companies->id = $this->generateUuid();
+        $data->departments->id = $this->generateUuid();
+        $data->teams->id = $this->generateUuid();
 
-        $data->companyDepartmentData->companyId = $data->companyData->id;
-        $data->departmentTeamData->departmentId = $data->companyDepartmentData->id;
+        $data->companies->userId = $data->id;
+        $data->departments->companyId = $data->companies->id;
+        $data->teams->departmentId = $data->departments->id;
     }
 
     protected function generateDefaultNames(UserData $data): void
     {
-        $data->companyData->name = 'default company #' . time();
-        $data->companyDepartmentData->name = 'default company department #' . time();
-        $data->departmentTeamData->name = 'default department team #' . time();
+        $data->companies->name = 'default company #' . time();
+        $data->departments->name = 'default company department #' . time();
+        $data->teams->name = 'default department team #' . time();
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Application\Company\Http\Controllers\Client;
+namespace App\Application\Company\V1\Http\Controllers\Client;
 
-use App\Application\Company\Http\Requests\Client\RegisterUserRequest;
-use App\Application\Company\Http\Resources\Client\UserResource;
+use App\Application\Company\V1\Http\Requests\Client\RegisterUserRequest;
+use App\Application\Company\V1\Http\Resources\Client\UserResource;
 use App\Domain\Client\ClientAggregate;
 use App\Domain\Client\DataTransferObjects\UserData;
 use App\Support\Bases\BaseController;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\JsonResponse;
 use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use OpenApi\Annotations as OA;
 
 class UserController extends BaseController

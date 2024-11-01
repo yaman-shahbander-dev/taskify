@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Application\Company\Http\Requests\Client;
+namespace App\Application\Company\V1\Http\Requests\Client;
 
 use App\Support\Bases\BaseRequest;
-use App\Support\Traits\ResponseTrait;
 use Illuminate\Validation\Rule;
 
 class RegisterUserRequest extends BaseRequest
 {
-    use ResponseTrait;
-
     public function authorize(): true
     {
         return true;

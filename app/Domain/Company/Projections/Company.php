@@ -2,22 +2,29 @@
 
 namespace App\Domain\Company\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Domain\Client\Projections\User;
+use App\Support\Bases\BaseProjection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Company extends Projection
+class Company extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'companies';
 
-    protected $fillable = ['id', 'name', 'address', 'contact_number'];
+    protected $fillable = ['id', 'user_id', 'name', 'address', 'contact_number'];
 
     public function getKeyName(): string
     {
         return 'id';
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function companyDepartments(): HasMany
+    {
+        return $this->hasMany(CompanyDepartment::class);
     }
 }

@@ -11,6 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('companies')) {
+            Schema::table('companies', function (Blueprint $table) {
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+            });
+        }
+
         if (Schema::hasTable('company_departments')) {
             Schema::table('company_departments', function (Blueprint $table) {
                 $table->foreign('company_id')

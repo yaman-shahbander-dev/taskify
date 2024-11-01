@@ -8,6 +8,7 @@ use App\Domain\Company\DataTransferObjects\CompanyDepartmentData;
 use App\Domain\Company\DataTransferObjects\DepartmentTeamData;
 use App\Support\Bases\BaseData;
 use Carbon\CarbonImmutable;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
@@ -16,14 +17,16 @@ class UserData extends BaseData
 {
     public function __construct(
         public ?string $id,
-        public string $name,
-        public string $email,
+        public ?string $name,
+        public ?string $email,
         public ?string $password,
-        public ?CompanyData $companyData,
-        public ?CompanyDepartmentData $companyDepartmentData,
-        public ?DepartmentTeamData $departmentTeamData,
-        public ?CarbonImmutable $createdAt,
-        public ?CarbonImmutable $updatedAt,
+        public ?string $bearerToken,
+        #[DataCollectionOf(CompanyData::class)]
+        public ?array $companies,
+        public ?CompanyDepartmentData $departments,
+        public ?DepartmentTeamData $teams,
+//        public ?CarbonImmutable $createdAt,
+//        public ?CarbonImmutable $updatedAt,
     ) {
     }
 
@@ -39,12 +42,39 @@ class UserData extends BaseData
             ->setName($data['name'])
             ->setEmail($data['email'])
             ->setPassword($data['password'])
-            ->setCompanyData([
+            ->setBearerToken(null)
+            ->setCompaniesData([
                 'address' => $data['address'],
                 'contact_number' => $data['contact_number']
             ])
-            ->setCompanyDepartmentData([])
-            ->setDepartmentTeamData([])
+            ->setDepartmentsData([])
+            ->setTeamsData([])
+            ->build();
+    }
+
+    public static function fromUserLogin(array $data): UserData
+    {
+        return self::builder()
+            ->setId(null)
+            ->setName(null)
+            ->setEmail($data['email'])
+            ->setPassword($data['password'])
+            ->setBearerToken(null)
+            ->setDepartmentsData([])
+            ->setTeamsData([])
+            ->build();
+    }
+
+    public static function fromResponse(array $data): UserData
+    {
+        return self::builder()
+            ->setId($data['id'])
+            ->setName($data['name'])
+            ->setEmail($data['email'])
+            ->setBearerToken($data['bearer_token'] ?? null)
+            ->setCompaniesData($data['companies'])
+            ->setDepartmentsData($data['departments'])
+            ->setTeamsData($data['teams'])
             ->build();
     }
 }

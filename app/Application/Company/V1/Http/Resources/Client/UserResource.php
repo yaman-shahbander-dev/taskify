@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\Company\Http\Resources\Client;
+namespace App\Application\Company\V1\Http\Resources\Client;
 
-use App\Application\Company\Http\Resources\Company\CompanyDepartmentResource;
-use App\Application\Company\Http\Resources\Company\CompanyResource;
-use App\Application\Company\Http\Resources\Company\DepartmentTeamResource;
+use App\Application\Company\V1\Http\Resources\Company\CompanyDepartmentResource;
+use App\Application\Company\V1\Http\Resources\Company\CompanyResource;
+use App\Application\Company\V1\Http\Resources\Company\DepartmentTeamResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Annotations as OA;
@@ -18,9 +18,9 @@ use OpenApi\Annotations as OA;
  *         @OA\Property(property="id", type="string", format="uuid", example="9d609e3f-5f8a-449d-a89c-018b704fedb8"),
  *         @OA\Property(property="name", type="string", example="yaman"),
  *         @OA\Property(property="email", type="string", example="yaman@gmail.com"),
- *         @OA\Property(property="company", ref="#/components/schemas/companyResponse"),
- *         @OA\Property(property="company_department", ref="#/components/schemas/companyDepartmentResponse"),
- *         @OA\Property(property="department_team", ref="#/components/schemas/departmentTeamResponse")
+ *         @OA\Property(property="companies", ref="#/components/schemas/companyResponse"),
+ *         @OA\Property(property="departments", ref="#/components/schemas/companyDepartmentResponse"),
+ *         @OA\Property(property="teams", ref="#/components/schemas/departmentTeamResponse")
  *     )
  * )
  */
@@ -37,9 +37,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'company' => new CompanyResource($this->companyData),
-            'company_department' => new CompanyDepartmentResource($this->companyDepartmentData),
-            'department_team' => new DepartmentTeamResource($this->departmentTeamData),
+            'companies' => new CompanyResource($this->companies),
+            'departments' => new CompanyDepartmentResource($this->departments),
+            'teams' => new DepartmentTeamResource($this->teams),
         ];
     }
 }

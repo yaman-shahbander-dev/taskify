@@ -2,15 +2,10 @@
 
 namespace App\Domain\Project\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Support\Bases\BaseProjection;
 
-class SprintReview extends Projection
+class SprintReview extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'sprint_reviews';
 
     public function getKeyName(): string

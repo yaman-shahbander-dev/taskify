@@ -16,6 +16,7 @@ class CompanyProjector extends BaseProjector
     {
         return app(CreateCompanyAction::class)(
             $event->data->id,
+            $event->data->userId,
             $event->data->name,
             $event->data->address,
             $event->data->contactNumber,

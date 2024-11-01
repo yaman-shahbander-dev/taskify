@@ -2,16 +2,10 @@
 
 namespace App\Domain\Client\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Support\Bases\BaseProjection;
 
-class UserTask extends Projection
+class UserTask extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'user_tasks';
 
     public function getKeyName(): string

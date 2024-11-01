@@ -12,14 +12,15 @@ use Carbon\CarbonImmutable;
 class UserDataBuilder implements UserDataBuilderContract
 {
     private ?string $id = null;
-    private string $name;
-    private string $email;
+    private ?string $name = null;
+    private ?string $email = null;
     private ?string $password = null;
-    private ?CompanyData $companyData = null;
-    private ?CompanyDepartmentData $companyDepartmentData = null;
-    private ?DepartmentTeamData $departmentTeamData = null;
-    private ?CarbonImmutable $createdAt = null;
-    private ?CarbonImmutable $updatedAt = null;
+    private ?string $bearerToken = null;
+    private ?array $companiesData = null;
+    private ?CompanyDepartmentData $departmentsData = null;
+    private ?DepartmentTeamData $teamsData = null;
+//    private ?CarbonImmutable $createdAt = null;
+//    private ?CarbonImmutable $updatedAt = null;
 
     public function setId(?string $id): self
     {
@@ -27,13 +28,13 @@ class UserDataBuilder implements UserDataBuilderContract
         return $this;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return $this;
@@ -45,35 +46,41 @@ class UserDataBuilder implements UserDataBuilderContract
         return $this;
     }
 
-    public function setCompanyData(?array $companyData): self
+    public function setBearerToken(?string $bearerToken): self
     {
-        $this->companyData = CompanyData::from($companyData);
+        $this->bearerToken = $bearerToken;
         return $this;
     }
 
-    public function setCompanyDepartmentData(?array $companyDepartmentData): self
+    public function setCompaniesData(?array $companies): self
     {
-        $this->companyDepartmentData = CompanyDepartmentData::from($companyDepartmentData);
+        $this->companiesData = CompanyData::collect($companies);
         return $this;
     }
 
-    public function setDepartmentTeamData(?array $departmentTeamData): self
+    public function setDepartmentsData(?array $departments): self
     {
-        $this->departmentTeamData = DepartmentTeamData::from($departmentTeamData);
+        $this->departmentsData = CompanyDepartmentData::from($departments);
         return $this;
     }
 
-    public function setCreatedAt(?CarbonImmutable $createdAt): self
+    public function setTeamsData(?array $teams): self
     {
-        $this->createdAt = $createdAt;
+        $this->teamsData = DepartmentTeamData::from($teams);
         return $this;
     }
 
-    public function setUpdatedAt(?CarbonImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
+//    public function setCreatedAt(?CarbonImmutable $createdAt): self
+//    {
+//        $this->createdAt = $createdAt;
+//        return $this;
+//    }
+//
+//    public function setUpdatedAt(?CarbonImmutable $updatedAt): self
+//    {
+//        $this->updatedAt = $updatedAt;
+//        return $this;
+//    }
 
     public function build(): UserData
     {
@@ -82,11 +89,12 @@ class UserDataBuilder implements UserDataBuilderContract
             name: $this->name,
             email: $this->email,
             password: $this->password,
-            companyData: $this->companyData,
-            companyDepartmentData: $this->companyDepartmentData,
-            departmentTeamData: $this->departmentTeamData,
-            createdAt: $this->createdAt,
-            updatedAt: $this->updatedAt
+            bearerToken: $this->bearerToken,
+            companies: $this->companiesData,
+            departments: $this->departmentsData,
+            teams: $this->teamsData,
+//            createdAt: $this->createdAt,
+//            updatedAt: $this->updatedAt
         );
     }
 }

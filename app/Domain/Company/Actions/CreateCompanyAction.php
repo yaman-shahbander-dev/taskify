@@ -10,10 +10,11 @@ class CreateCompanyAction
     public function __construct(protected Company $company)
     {
     }
-    public function __invoke(string $id, string $name, string $address, string $contactNumber): ?Company
+    public function __invoke(string $id, string $userId, string $name, string $address, string $contactNumber): ?Company
     {
         $company = $this->company->writeable()->create([
             'id' => $id,
+            'user_id' => $userId,
             'name' => $name,
             'address' => $address,
             'contact_number' => $contactNumber,
