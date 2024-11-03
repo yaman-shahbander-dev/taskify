@@ -11,7 +11,7 @@ use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
- *     schema="RegisterUserResponse",
+ *     schema="AdminResponse",
  *     type="object",
  *     @OA\Property(property="message", type="string", example="OK"),
  *     @OA\Property(property="data", type="object",
@@ -37,9 +37,10 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'companies' => new CompanyResource($this->companies),
-            'departments' => new CompanyDepartmentResource($this->departments),
-            'teams' => new DepartmentTeamResource($this->teams),
+            'bearer_token' => $this->bearerToken,
+            'companies' => CompanyResource::collection($this->companies),
+            'departments' => CompanyDepartmentResource::collection($this->departments),
+            'teams' => DepartmentTeamResource::collection($this->teams),
         ];
     }
 }

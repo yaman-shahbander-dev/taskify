@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Domain\Client\Builders\UserDataBuilder;
-use App\Domain\Client\Contracts\UserDataBuilderContract;
 use App\Domain\Client\Projections\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UserDataBuilderContract::class, UserDataBuilder::class);
     }
 
     /**

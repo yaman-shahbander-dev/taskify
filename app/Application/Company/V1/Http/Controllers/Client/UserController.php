@@ -4,8 +4,9 @@ namespace App\Application\Company\V1\Http\Controllers\Client;
 
 use App\Application\Company\V1\Http\Requests\Client\RegisterUserRequest;
 use App\Application\Company\V1\Http\Resources\Client\UserResource;
+use App\Domain\Client\Actions\LoadUserAction;
 use App\Domain\Client\ClientAggregate;
-use App\Domain\Client\DataTransferObjects\UserData;
+use App\Domain\Company\DataTransferObjects\CreateCompanyData;
 use App\Support\Bases\BaseController;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -16,8 +17,8 @@ class UserController extends BaseController
 {
     /**
      * @OA\Post(
-     *     path="/company/client/register",
-     *     tags={"Register"},
+     *     path="/company/v1/client/register",
+     *     tags={"Platform Access"},
      *     summary="Register a company",
      *     description="This endpoint registers a user company",
      *
@@ -35,7 +36,7 @@ class UserController extends BaseController
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/RegisterUserResponse")
+     *          @OA\JsonContent(ref="#/components/schemas/CompanyResponse")
      *     ),
      *
      *     @OA\Response(
@@ -52,12 +53,12 @@ class UserController extends BaseController
     {
         $validatedData = $request->validated();
         $id = $this->addUuid($validatedData);
-        $userData = UserData::fromUserRegister($validatedData);
+        $data = CreateCompanyData::from($validatedData);
 
         DB::beginTransaction();
         try {
             ClientAggregate::retrieve($id)
-                ->registerUser($userData)
+                ->registerUser($data)
                 ->persist();
 
             DB::commit();
@@ -66,6 +67,7 @@ class UserController extends BaseController
             return $this->failedResponse($exception->getMessage());
         }
 
-        return $this->okResponse(UserResource::make($userData));
+        $user = app(LoadUserAction::class)($data->email, 'email');
+        return $this->okResponse(UserResource::make($user));
     }
 }

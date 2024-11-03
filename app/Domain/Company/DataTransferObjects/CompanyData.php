@@ -3,7 +3,7 @@
 namespace App\Domain\Company\DataTransferObjects;
 
 use App\Support\Bases\BaseData;
-use Carbon\CarbonImmutable;
+use Carbon\Carbon;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
@@ -16,8 +16,8 @@ class CompanyData extends BaseData
         public ?string $name,
         public ?string $address,
         public ?string $contactNumber,
-        public ?CarbonImmutable $createdAt,
-        public ?CarbonImmutable $updatedAt,
+        public ?Carbon $createdAt,
+        public ?Carbon $updatedAt,
     ) {
     }
 }

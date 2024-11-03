@@ -6,7 +6,18 @@ return [
      * is an array, it will try to convert from the first format that works,
      * and will serialize dates using the first format from the array.
      */
-    'date_format' => DATE_ATOM,
+    'date_format' => [
+        'Y-m-d\TH:i:s.u\Z',      // Example: 2024-11-01T10:42:57.000000Z
+        'Y-m-d\TH:i:s.uP',       // Example: 2024-11-01T10:42:57.000000+00:00
+        'Y-m-d H:i:s.u',         // Example: 2024-11-01 10:42:57.000000
+        'Y-m-d H:i:s',           // Example: 2024-11-01 10:42:57
+        'Y-m-d H:i',             // Example: 2024-11-01 10:42
+        'Y-m-d H',               // Example: 2024-11-01 10
+        'Y-m-d',                 // Example: 2024-11-01
+        DATE_ATOM,               // Atom format
+        DATE_RFC3339,            // RFC3339 format
+        'Y-m-d\TH:i:s.u',        // ISO8601 without timezone
+    ],
 
     /**
      * When transforming or casting dates, the following timezone will be used to

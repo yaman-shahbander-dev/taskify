@@ -11,16 +11,17 @@ class LoadUserAction
     public function __construct(protected User $user)
     {
     }
-    public function __invoke(string $value, string $column = 'id')//: User
+    public function __invoke(string $value, string $column = 'id'): UserData
     {
         $user = $this->user->query()
+            ->with([
+                'companies',
+                'departments',
+                'teams',
+            ])
             ->where($column, $value)
             ->firstOr(fn() => throw new UserNotFoundException());
 
-        $user->load(['companies', 'departments', 'teams']);
-
-        return UserData::fromResponse($user->toArray());
-
-        return $user->load(['companies', 'departments', 'teams']);
+        return UserData::from($user->toArray());
     }
 }

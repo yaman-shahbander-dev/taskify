@@ -15,14 +15,79 @@
         }
     ],
     "paths": {
-        "/company/client/register": {
+        "/admin/v1/client/login": {
             "post": {
                 "tags": [
-                    "Register"
+                    "Platform Access"
+                ],
+                "summary": "Login as admin",
+                "description": "This endpoint is used to login a user as admin",
+                "operationId": "fb108008f89f25b90f824ed80a6b35e4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "email",
+                                        "example": "admin@admin.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unprocessable Content"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The email field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/company/v1/client/register": {
+            "post": {
+                "tags": [
+                    "Platform Access"
                 ],
                 "summary": "Register a company",
                 "description": "This endpoint registers a user company",
-                "operationId": "f5c53231a56689312439a8ab464d0759",
+                "operationId": "03f5f2a5edba4f154456cbddc39f72ab",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -61,7 +126,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/RegisterUserResponse"
+                                    "$ref": "#/components/schemas/CompanyResponse"
                                 }
                             }
                         }
@@ -88,7 +153,7 @@
     },
     "components": {
         "schemas": {
-            "RegisterUserResponse": {
+            "AdminResponse": {
                 "properties": {
                     "message": {
                         "type": "string",
@@ -109,13 +174,49 @@
                                 "type": "string",
                                 "example": "yaman@gmail.com"
                             },
-                            "company": {
+                            "companies": {
                                 "$ref": "#/components/schemas/companyResponse"
                             },
-                            "company_department": {
+                            "departments": {
                                 "$ref": "#/components/schemas/companyDepartmentResponse"
                             },
-                            "department_team": {
+                            "teams": {
+                                "$ref": "#/components/schemas/departmentTeamResponse"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "CompanyResponse": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "data": {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "9d609e3f-5f8a-449d-a89c-018b704fedb8"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "yaman"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "yaman@gmail.com"
+                            },
+                            "companies": {
+                                "$ref": "#/components/schemas/companyResponse"
+                            },
+                            "departments": {
+                                "$ref": "#/components/schemas/companyDepartmentResponse"
+                            },
+                            "teams": {
                                 "$ref": "#/components/schemas/departmentTeamResponse"
                             }
                         },
@@ -149,6 +250,11 @@
                         "type": "string",
                         "format": "uuid",
                         "example": "9d609e3f-c241-4811-97e4-15cffe1ec71d"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c241-4811-97e4-15cffe1ecsss"
                     },
                     "name": {
                         "type": "string",
@@ -188,8 +294,8 @@
     },
     "tags": [
         {
-            "name": "Register",
-            "description": "Register"
+            "name": "Platform Access",
+            "description": "Platform Access"
         }
     ]
 }

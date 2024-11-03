@@ -31,7 +31,7 @@ class CheckLoginCredentialsAction
 
         if (!Cache::has($user->email)) {
             $token = app(GenerateTokenAction::class)($user);
-            Cache::put($user->email, $token, 300);
+            Cache::put($user->email, $token, 120);
         }
     }
 }
