@@ -4,7 +4,9 @@ namespace App\Domain\Client;
 
 use App\Domain\Client\DataTransferObjects\UserLoginData;
 use App\Domain\Client\Events\AdminLoggedIn;
+use App\Domain\Client\Events\CompanyLoggedIn;
 use App\Domain\Client\Events\CompanyRoleAssigned;
+use App\Domain\Client\Events\EmployeeLoggedIn;
 use App\Domain\Client\Events\UserRegistered;
 use App\Domain\Client\Factories\RegisterUserDTOFactory;
 use App\Domain\Company\DataTransferObjects\CreateCompanyData;
@@ -32,6 +34,20 @@ class ClientAggregate extends BaseAggregate
     public function adminLogin(UserLoginData $data): static
     {
         $this->recordThat(new AdminLoggedIn($data));
+
+        return $this;
+    }
+
+    public function companyLogin(UserLoginData $data): static
+    {
+        $this->recordThat(new CompanyLoggedIn($data));
+
+        return $this;
+    }
+
+    public function employeeLogin(UserLoginData $data): static
+    {
+        $this->recordThat(new EmployeeLoggedIn($data));
 
         return $this;
     }

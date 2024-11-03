@@ -149,6 +149,136 @@
                     }
                 }
             }
+        },
+        "/company/v1/client/login": {
+            "post": {
+                "tags": [
+                    "Platform Access"
+                ],
+                "summary": "Login as company",
+                "description": "This endpoint is used to login a user as company",
+                "operationId": "4e527cd1483c58617abb63f2398b9c77",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "email",
+                                        "example": "company@company.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompanyResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unprocessable Content"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The email field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/v1/client/login": {
+            "post": {
+                "tags": [
+                    "Platform Access"
+                ],
+                "summary": "Login as employee",
+                "description": "This endpoint is used to login a user as employee",
+                "operationId": "58390082719a91bd8339e58a57ec1b7a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "email",
+                                        "example": "company@company.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmployeeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unprocessable Content"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The email field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -286,6 +416,42 @@
                     "name": {
                         "type": "string",
                         "example": "default department team #1730382974"
+                    }
+                },
+                "type": "object"
+            },
+            "EmployeeResponse": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "data": {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "9d609e3f-5f8a-449d-a89c-018b704fedb8"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "yaman"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "yaman@gmail.com"
+                            },
+                            "companies": {
+                                "$ref": "#/components/schemas/companyResponse"
+                            },
+                            "departments": {
+                                "$ref": "#/components/schemas/companyDepartmentResponse"
+                            },
+                            "teams": {
+                                "$ref": "#/components/schemas/departmentTeamResponse"
+                            }
+                        },
+                        "type": "object"
                     }
                 },
                 "type": "object"
