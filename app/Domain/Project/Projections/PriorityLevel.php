@@ -2,15 +2,10 @@
 
 namespace App\Domain\Project\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Support\Bases\BaseProjection;
 
-class PriorityLevel extends Projection
+class PriorityLevel extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'priority_levels';
 
     public function getKeyName(): string

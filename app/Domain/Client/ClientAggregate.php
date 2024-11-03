@@ -2,8 +2,14 @@
 
 namespace App\Domain\Client;
 
+use App\Domain\Client\DataTransferObjects\UserLoginData;
+use App\Domain\Client\Events\AdminLoggedIn;
+use App\Domain\Client\Events\CompanyLoggedIn;
 use App\Domain\Client\Events\CompanyRoleAssigned;
+use App\Domain\Client\Events\EmployeeLoggedIn;
 use App\Domain\Client\Events\UserRegistered;
+use App\Domain\Client\Factories\RegisterUserDTOFactory;
+use App\Domain\Company\DataTransferObjects\CreateCompanyData;
 use App\Domain\Company\Events\CompanyCreated;
 use App\Domain\Company\Events\CompanyDepartmentCreated;
 use App\Domain\Company\Events\DepartmentTeamCreated;
@@ -12,34 +18,37 @@ use App\Domain\Client\DataTransferObjects\UserData;
 
 class ClientAggregate extends BaseAggregate
 {
-    public function registerUser(UserData $data): static
+    public function registerUser(CreateCompanyData $data): static
     {
-        $this->generateAndAssignIds($data);
-        $this->generateDefaultNames($data);
+        [$companyDTO, $departmentDTO, $teamDTO] = app(RegisterUserDTOFactory::class)->create($data);
 
-        $this->recordThat(new UserRegistered($data));
-        $this->recordThat(new CompanyCreated($data->companyData));
-        $this->recordThat(new CompanyDepartmentCreated($data->companyDepartmentData));
-        $this->recordThat(new DepartmentTeamCreated($data->departmentTeamData));
+        $this->recordThat(new UserRegistered(UserData::from($data)));
+        $this->recordThat(new CompanyCreated($companyDTO));
+        $this->recordThat(new CompanyDepartmentCreated($departmentDTO));
+        $this->recordThat(new DepartmentTeamCreated($teamDTO));
         $this->recordThat(new CompanyRoleAssigned($data->id));
 
         return $this;
     }
 
-    protected function generateAndAssignIds(UserData $data): void
+    public function adminLogin(UserLoginData $data): static
     {
-        $data->companyData->id = $this->generateUuid();
-        $data->companyDepartmentData->id = $this->generateUuid();
-        $data->departmentTeamData->id = $this->generateUuid();
+        $this->recordThat(new AdminLoggedIn($data));
 
-        $data->companyDepartmentData->companyId = $data->companyData->id;
-        $data->departmentTeamData->departmentId = $data->companyDepartmentData->id;
+        return $this;
     }
 
-    protected function generateDefaultNames(UserData $data): void
+    public function companyLogin(UserLoginData $data): static
     {
-        $data->companyData->name = 'default company #' . time();
-        $data->companyDepartmentData->name = 'default company department #' . time();
-        $data->departmentTeamData->name = 'default department team #' . time();
+        $this->recordThat(new CompanyLoggedIn($data));
+
+        return $this;
+    }
+
+    public function employeeLogin(UserLoginData $data): static
+    {
+        $this->recordThat(new EmployeeLoggedIn($data));
+
+        return $this;
     }
 }

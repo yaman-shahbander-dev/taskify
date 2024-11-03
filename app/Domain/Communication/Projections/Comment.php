@@ -2,15 +2,10 @@
 
 namespace App\Domain\Communication\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Support\Bases\BaseProjection;
 
-class Comment extends Projection
+class Comment extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'comments';
 
     public function getKeyName(): string

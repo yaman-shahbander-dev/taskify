@@ -2,15 +2,10 @@
 
 namespace App\Domain\Finance\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Support\Bases\BaseProjection;
 
-class InvoiceItem extends Projection
+class InvoiceItem extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'invoice_items';
 
     public function getKeyName(): string

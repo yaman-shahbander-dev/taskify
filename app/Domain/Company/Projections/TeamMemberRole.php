@@ -2,15 +2,10 @@
 
 namespace App\Domain\Company\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Support\Bases\BaseProjection;
 
-class TeamMemberRole extends Projection
+class TeamMemberRole extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'team_member_roles';
 
     public function getKeyName(): string

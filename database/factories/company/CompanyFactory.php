@@ -2,6 +2,7 @@
 
 namespace Database\Factories\company;
 
+use App\Domain\Client\Projections\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Domain\Company\Projections\Company;
 
@@ -17,6 +18,7 @@ class CompanyFactory extends Factory
     {
         return [
             'id' => fake()->unique()->uuid(),
+            'user_id' => User::query()->first()->id,
             'name' => fake()->name,
             'address' => fake()->address,
             'contact_number' => fake()->phoneNumber,

@@ -2,15 +2,10 @@
 
 namespace App\Domain\Project\Projections;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\EventSourcing\Projections\Projection;
+use App\Support\Bases\BaseProjection;
 
-class SprintTask extends Projection
+class SprintTask extends BaseProjection
 {
-    use HasFactory;
-    use HasUuids;
-
     protected $table = 'sprint_tasks';
 
     public function getKeyName(): string

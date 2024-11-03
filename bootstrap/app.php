@@ -15,21 +15,21 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            foreach (glob(__DIR__ . '/../routes/admin/*.php') as $routeFile) {
+            foreach (glob(__DIR__ . '/../routes/admin/v1/*.php') as $routeFile) {
                 Route::middleware('api')
-                    ->prefix('admin')
+                    ->prefix('admin/v1')
                     ->group($routeFile);
             }
 
-            foreach (glob(__DIR__ . '/../routes/company/*.php') as $routeFile) {
+            foreach (glob(__DIR__ . '/../routes/company/v1/*.php') as $routeFile) {
                 Route::middleware('api')
-                    ->prefix('company')
+                    ->prefix('company/v1')
                     ->group($routeFile);
             }
 
-            foreach (glob(__DIR__ . '/../routes/employee/*.php') as $routeFile) {
+            foreach (glob(__DIR__ . '/../routes/employee/v1/*.php') as $routeFile) {
                 Route::middleware('api')
-                    ->prefix('employee')
+                    ->prefix('employee/v1')
                     ->group($routeFile);
             }
         },

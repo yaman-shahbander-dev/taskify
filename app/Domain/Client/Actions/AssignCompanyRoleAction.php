@@ -15,11 +15,7 @@ class AssignCompanyRoleAction
     {
         $user = $this->user->query()
             ->where('id', $id)
-            ->first();
-
-        if (!$user) {
-            throw new UserNotFoundException();
-        }
+            ->firstOr(fn() => throw new UserNotFoundException());
 
         $user->assignRole(RolesEnum::COMPANY->value);
 

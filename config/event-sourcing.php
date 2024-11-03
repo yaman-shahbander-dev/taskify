@@ -5,6 +5,9 @@ use App\Domain\Company\Events\CompanyCreated;
 use App\Domain\Company\Events\CompanyDepartmentCreated;
 use App\Domain\Company\Events\DepartmentTeamCreated;
 use App\Domain\Client\Events\CompanyRoleAssigned;
+use App\Domain\Client\Events\AdminLoggedIn;
+use App\Domain\Client\Events\CompanyLoggedIn;
+use App\Domain\Client\Events\EmployeeLoggedIn;
 
 return [
 
@@ -106,6 +109,9 @@ return [
         'company_department_created' => CompanyDepartmentCreated::class,
         'department_team_created' => DepartmentTeamCreated::class,
         'company_role_assigned' => CompanyRoleAssigned::class,
+        'admin_logged_in' => AdminLoggedIn::class,
+        'company_logged_in' => CompanyLoggedIn::class,
+        'employee_logged_in' => EmployeeLoggedIn::class,
     ],
 
     /*
