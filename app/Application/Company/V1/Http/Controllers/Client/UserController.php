@@ -39,7 +39,7 @@ class UserController extends BaseController
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CompanyResponse")
+     *          @OA\JsonContent(ref="#/components/schemas/Company_UserResponse")
      *     ),
      *
      *     @OA\Response(
@@ -92,7 +92,7 @@ class UserController extends BaseController
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
-     *         @OA\JsonContent(ref="#/components/schemas/CompanyResponse")
+     *         @OA\JsonContent(ref="#/components/schemas/Company_UserResponse")
      *     ),
      *
      *     @OA\Response(

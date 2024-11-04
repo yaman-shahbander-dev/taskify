@@ -12,4 +12,14 @@ class BaseProjection extends Projection
     use HasFactory;
     use HasUuids;
     use HasRelationships;
+
+    public function getKeyName(): string
+    {
+        return 'id';
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
 }

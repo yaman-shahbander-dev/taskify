@@ -8,6 +8,11 @@ use App\Domain\Client\Events\CompanyRoleAssigned;
 use App\Domain\Client\Events\AdminLoggedIn;
 use App\Domain\Client\Events\CompanyLoggedIn;
 use App\Domain\Client\Events\EmployeeLoggedIn;
+use App\Domain\Company\Events\DepartmentCreated;
+use App\Domain\Company\Events\DepartmentUpdated;
+use App\Domain\Company\Events\DepartmentDeleted;
+use App\Domain\Company\Events\TeamCreated;
+use App\Domain\Company\Events\TeamUpdated;
 
 return [
 
@@ -112,6 +117,11 @@ return [
         'admin_logged_in' => AdminLoggedIn::class,
         'company_logged_in' => CompanyLoggedIn::class,
         'employee_logged_in' => EmployeeLoggedIn::class,
+        'department_created' => DepartmentCreated::class,
+        'department_updated' => DepartmentUpdated::class,
+        'team_created' => TeamCreated::class,
+        'team_updated' => TeamUpdated::class,
+        'department_deleted' => DepartmentDeleted::class,
     ],
 
     /*

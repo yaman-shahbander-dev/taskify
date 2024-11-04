@@ -2,9 +2,9 @@
 
 namespace App\Application\Admin\V1\Http\Resources\Client;
 
-use App\Application\Company\V1\Http\Resources\Company\CompanyDepartmentResource;
-use App\Application\Company\V1\Http\Resources\Company\CompanyResource;
-use App\Application\Company\V1\Http\Resources\Company\DepartmentTeamResource;
+use App\Application\Admin\V1\Http\Resources\Company\MinifiedCompanyDepartmentResource;
+use App\Application\Admin\V1\Http\Resources\Company\MinifiedCompanyResource;
+use App\Application\Admin\V1\Http\Resources\Company\DepartmentTeamResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Annotations as OA;
@@ -18,9 +18,9 @@ use OpenApi\Annotations as OA;
  *         @OA\Property(property="id", type="string", format="uuid", example="9d609e3f-5f8a-449d-a89c-018b704fedb8"),
  *         @OA\Property(property="name", type="string", example="yaman"),
  *         @OA\Property(property="email", type="string", example="yaman@gmail.com"),
- *         @OA\Property(property="companies", ref="#/components/schemas/companyResponse"),
- *         @OA\Property(property="departments", ref="#/components/schemas/companyDepartmentResponse"),
- *         @OA\Property(property="teams", ref="#/components/schemas/departmentTeamResponse")
+ *         @OA\Property(property="companies", ref="#/components/schemas/Admin_MinifiedcompanyResponse"),
+ *         @OA\Property(property="departments", ref="#/components/schemas/Admin_MinifiedCompanyDepartmentResponse"),
+ *         @OA\Property(property="teams", ref="#/components/schemas/Admin_DepartmentTeamResponse")
  *     )
  * )
  */
@@ -38,8 +38,8 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'bearer_token' => $this->bearerToken,
-            'companies' => CompanyResource::collection($this->companies),
-            'departments' => CompanyDepartmentResource::collection($this->departments),
+            'companies' => MinifiedCompanyResource::collection($this->companies),
+            'departments' => MinifiedCompanyDepartmentResource::collection($this->departments),
             'teams' => DepartmentTeamResource::collection($this->teams),
         ];
     }

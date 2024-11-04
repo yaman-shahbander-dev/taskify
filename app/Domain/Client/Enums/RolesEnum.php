@@ -3,7 +3,6 @@
 namespace App\Domain\Client\Enums;
 
 use App\Support\Traits\EnumTrait;
-use App\Domain\Client\Enums\PermissionsEnum;
 
 enum RolesEnum: string
 {
@@ -19,9 +18,11 @@ enum RolesEnum: string
     {
         return [
             self::ADMIN->value => [
-                PermissionsEnum::ALL->value,
+                PermissionsEnum::DEPARTMENTS_LIST->value,
+                PermissionsEnum::DEPARTMENTS_SHOW->value,
             ],
             self::COMPANY->value => [
+                PermissionsEnum::DEPARTMENTS->value
             ],
             self::MANAGER->value => [
             ],
