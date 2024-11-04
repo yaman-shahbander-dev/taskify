@@ -6,7 +6,8 @@ namespace App\Domain\Client\Projections;
 use App\Domain\Company\Projections\Company;
 use App\Domain\Company\Projections\CompanyDepartment;
 use App\Domain\Company\Projections\DepartmentTeam;
-use App\Support\Bases\BaseProjection;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,13 +17,17 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
-class User extends BaseProjection
+class User extends Authenticatable
 {
     use Notifiable;
     use HasApiTokens;
     use HasRoles;
     use LogsActivity;
+    use HasUuids;
+    use HasRelationships;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -66,11 +71,6 @@ class User extends BaseProjection
         return LogOptions::defaults()
             ->logFillable()
             ->logOnlyDirty();
-    }
-
-    public function getKeyName(): string
-    {
-        return 'id';
     }
 
     protected function getDefaultGuardName(): string

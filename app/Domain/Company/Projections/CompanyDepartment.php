@@ -12,11 +12,6 @@ class CompanyDepartment extends BaseProjection
 
     protected $fillable = ['id', 'company_id', 'name'];
 
-    public function getKeyName(): string
-    {
-        return 'id';
-    }
-
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
@@ -24,6 +19,6 @@ class CompanyDepartment extends BaseProjection
 
     public function departmentTeams(): HasMany
     {
-        return $this->hasMany(DepartmentTeam::class);
+        return $this->hasMany(DepartmentTeam::class, 'department_id');
     }
 }

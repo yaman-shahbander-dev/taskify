@@ -6,6 +6,7 @@ namespace App\Support\Traits;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -23,7 +24,8 @@ trait ResponseTrait
         return $this->jsonResponse(
             [
                 'message' => $message ?? $this->morphStatusMessage($status),
-                'data' => $this->morphToArray($data)
+                'data' => $this->morphToArray($data),
+                'meta' => $this->extractPaginationInfo($data->resource ?? null)
             ],
             $status,
             $headers
@@ -198,5 +200,28 @@ trait ResponseTrait
             450 => 'Invalid Data',
             default => Response::$statusTexts[$statusCode] ?? 'Unknown Status'
         };
+    }
+
+    protected function extractPaginationInfo($resource): ?array
+    {
+        if ($resource instanceof LengthAwarePaginator) {
+            return [
+                'current_page' => $resource->currentPage(),
+                'from' => $resource->firstItem(),
+                'last_page' => $resource->lastPage(),
+                'per_page' => $resource->perPage(),
+                'to' => $resource->lastItem(),
+                'total' => $resource->total(),
+                'path' => $resource->path(),
+                'links' => [
+                    'first' => $resource->url(1),
+                    'last' => $resource->url($resource->lastPage()),
+                    'prev' => $resource->previousPageUrl(),
+                    'next' => $resource->nextPageUrl(),
+                ],
+            ];
+        }
+
+        return null;
     }
 }

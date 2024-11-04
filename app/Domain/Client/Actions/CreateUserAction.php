@@ -13,7 +13,7 @@ class CreateUserAction
     }
     public function __invoke(string $id, string $name, string $email, string $password)
     {
-        $user = $this->user->writeable()->create([
+        $user = $this->user->query()->create([
             'id' => $id,
             'name' => $name,
             'email' => $email,

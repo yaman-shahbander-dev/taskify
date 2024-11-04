@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        app(User::class)->writeable()->firstOrCreate([
+        app(User::class)->firstOrCreate([
             'email' => 'admin@admin.com',
         ], [
             'name' => 'Admin',
