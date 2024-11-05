@@ -6,9 +6,9 @@ use App\Domain\Company\DataTransferObjects\DepartmentTeamData;
 use App\Domain\Company\Events\TeamCreated;
 use App\Domain\Company\Events\TeamDeleted;
 use App\Domain\Company\Events\TeamUpdated;
-use Spatie\EventSourcing\AggregateRoots\AggregatePartial;
+use App\Support\Bases\BaseAggregatePartial;
 
-class TeamAggregatePartial extends AggregatePartial
+class TeamAggregatePartial extends BaseAggregatePartial
 {
     public function createTeam(DepartmentTeamData $data): static
     {

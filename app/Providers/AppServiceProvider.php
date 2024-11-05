@@ -7,6 +7,8 @@ use App\Domain\Company\Policies\DepartmentPolicy;
 use App\Domain\Company\Policies\TeamPolicy;
 use App\Domain\Company\Projections\CompanyDepartment;
 use App\Domain\Company\Projections\DepartmentTeam;
+use App\Domain\Project\Policies\ProjectPolicy;
+use App\Domain\Project\Projections\Project;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -55,5 +57,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policy(CompanyDepartment::class, DepartmentPolicy::class);
         Gate::policy(DepartmentTeam::class, TeamPolicy::class);
+        Gate::policy(Project::class, ProjectPolicy::class);
     }
 }

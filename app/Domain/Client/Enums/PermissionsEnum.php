@@ -22,4 +22,11 @@ enum PermissionsEnum: string
     case TEAMS_STORE = 'teams.store.*';
     case TEAMS_UPDATE = 'teams.update.*';
     case TEAMS_DESTROY = 'teams.destroy.*';
+
+    case PROJECTS = 'projects.*';
+    case PROJECTS_LIST = 'projects.list.*';
+    case PROJECTS_SHOW = 'projects.show.*';
+    case PROJECTS_STORE = 'projects.store.*';
+    case PROJECTS_UPDATE = 'projects.update.*';
+    case PROJECTS_DESTROY = 'projects.destroy.*';
 }

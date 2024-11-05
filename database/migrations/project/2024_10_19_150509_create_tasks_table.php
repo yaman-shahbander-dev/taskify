@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('project_id');
             $table->foreignUuid('priority_id');
-            $table->foreignUuid('assigned_to');
+            $table->foreignUuid('assigned_to')->nullable();
             $table->string('title');
             $table->string('description');
             $table->string('status');

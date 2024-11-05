@@ -22,10 +22,13 @@ enum RolesEnum: string
                 PermissionsEnum::DEPARTMENTS_SHOW->value,
                 PermissionsEnum::TEAMS_LIST->value,
                 PermissionsEnum::TEAMS_SHOW->value,
+                PermissionsEnum::PROJECTS_LIST->value,
+                PermissionsEnum::PROJECTS_SHOW->value,
             ],
             self::COMPANY->value => [
                 PermissionsEnum::DEPARTMENTS->value,
                 PermissionsEnum::TEAMS->value,
+                PermissionsEnum::PROJECTS->value,
             ],
             self::MANAGER->value => [
             ],
