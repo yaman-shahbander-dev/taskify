@@ -18,14 +18,8 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
-        $company = Company::query()->inRandomOrder()->first();
-        $department = CompanyDepartment::query()->where('company_id')->first()
-            ?? CompanyDepartmentFactory::new()->createWritable(['company_id' => $company->id]);
-
         return [
             'id' => fake()->unique()->uuid(),
-            'company_id' => $company->id,
-            'department_id' => $department->id,
             'name' => fake()->name,
             'description' => fake()->sentence,
             'created_at' => now(),
