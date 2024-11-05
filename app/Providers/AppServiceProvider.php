@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Domain\Client\Projections\User;
 use App\Domain\Company\Policies\DepartmentPolicy;
+use App\Domain\Company\Policies\TeamPolicy;
 use App\Domain\Company\Projections\CompanyDepartment;
+use App\Domain\Company\Projections\DepartmentTeam;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -52,5 +54,6 @@ class AppServiceProvider extends ServiceProvider
     protected function preparePolicies(): void
     {
         Gate::policy(CompanyDepartment::class, DepartmentPolicy::class);
+        Gate::policy(DepartmentTeam::class, TeamPolicy::class);
     }
 }

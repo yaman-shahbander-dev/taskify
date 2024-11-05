@@ -2,16 +2,15 @@
 
 namespace App\Application\Company\V1\Http\Controllers\Company;
 
-use App\Application\Company\V1\Http\Requests\Client\CreateDepartmentRequest;
-use App\Application\Company\V1\Http\Requests\Client\UpdateDepartmentRequest;
-use App\Application\Company\V1\Http\Resources\Company\CompanyDepartmentPaginatedResource;
-use App\Application\Company\V1\Http\Resources\Company\CompanyDepartmentResource;
-use App\Domain\Company\Actions\GetCompanyDepartmentsAction;
-use App\Domain\Company\Actions\LoadDepartmentAction;
+use App\Application\Company\V1\Http\Requests\Client\CreateTeamRequest;
+use App\Application\Company\V1\Http\Requests\Client\UpdateTeamRequest;
+use App\Application\Company\V1\Http\Resources\Company\TeamPaginatedResource;
+use App\Application\Company\V1\Http\Resources\Company\TeamResource;
+use App\Domain\Company\Actions\GetTeamsAction;
+use App\Domain\Company\Actions\LoadTeamAction;
 use App\Domain\Company\CompanyAggregate;
-use App\Domain\Company\DataTransferObjects\CreateDepartmentData;
-use App\Domain\Company\DataTransferObjects\UpdateDepartmentData;
-use App\Domain\Company\Projections\CompanyDepartment;
+use App\Domain\Company\DataTransferObjects\DepartmentTeamData;
+use App\Domain\Company\Projections\DepartmentTeam;
 use App\Support\Bases\BaseController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -19,14 +18,14 @@ use Illuminate\Support\Facades\Gate;
 use OpenApi\Annotations\OpenApi AS OA;
 use Exception;
 
-class DepartmentController extends BaseController
+class TeamController extends BaseController
 {
     /**
      * @OA\Get(
-     *     path="/company/v1/departments",
-     *     tags={"Departments"},
-     *     summary="Get departments",
-     *     description="Get departments",
+     *     path="/company/v1/teams",
+     *     tags={"Teams"},
+     *     summary="Get teams",
+     *     description="Get teams",
      *     @OA\Response(
      *         response=200,
      *         description="OK",
@@ -35,7 +34,7 @@ class DepartmentController extends BaseController
      *             @OA\Property(
      *                 property="data",
      *                 type="array",
-     *                 @OA\Items(ref="#/components/schemas/Company_CompanyDepartmentPaginatedResponse")
+     *                 @OA\Items(ref="#/components/schemas/Company_TeamPaginatedResponse")
      *             ),
      *             @OA\Property(
      *                 property="meta",
@@ -47,26 +46,26 @@ class DepartmentController extends BaseController
      */
     public function index(): JsonResponse
     {
-        Gate::authorize('viewAny', CompanyDepartment::class);
+        Gate::authorize('viewAny', DepartmentTeam::class);
 
         $userId = auth()->user()->id;
-        $departments = app(GetCompanyDepartmentsAction::class)($userId);
+        $teams = app(GetTeamsAction::class)($userId);
 
-        return $this->okResponse(CompanyDepartmentPaginatedResource::collection($departments));
+        return $this->okResponse(TeamPaginatedResource::collection($teams));
     }
 
     /**
      * @OA\Get(
-     *     path="/company/v1/departments/{department}",
-     *     tags={"Departments"},
-     *     summary="Get a specific department",
-     *     description="Retrieve details of a specific department by its ID",
+     *     path="/company/v1/teams/{team}",
+     *     tags={"Teams"},
+     *     summary="Get a specific team",
+     *     description="Retrieve details of a specific team by its ID",
      *     @OA\Parameter(
-     *         name="department",
+     *         name="team",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="string", format="uuid"),
-     *         description="The ID of the department"
+     *         description="The ID of the team"
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -75,32 +74,31 @@ class DepartmentController extends BaseController
      *             @OA\Property(property="message", type="string", example="OK"),
      *             @OA\Property(
      *                 property="data",
-     *                 ref="#/components/schemas/Company_fullCompanyDepartmentResponse"
+     *                 ref="#/components/schemas/Company_fullTeamResponse"
      *             ),
      *             @OA\Property(property="meta", type="object", example=null),
      *         ),
      *     )
      * )
      */
-    public function show(CompanyDepartment $department): JsonResponse
+    public function show(DepartmentTeam $team): JsonResponse
     {
-        Gate::authorize('view', $department);
+        Gate::authorize('view', $team);
 
-        return $this->okResponse(CompanyDepartmentResource::make($department->load(['company', 'departmentTeams'])));
+        return $this->okResponse(TeamResource::make($team->load(['companyDepartment', 'company'])));
     }
 
     /**
      * @OA\Post(
-     *     path="/company/v1/departments",
-     *     tags={"Departments"},
-     *     summary="Create department",
-     *     description="This endpoint is used to create a new department",
+     *     path="/company/v1/teams",
+     *     tags={"Teams"},
+     *     summary="Create team",
+     *     description="This endpoint is used to create a new team",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
-     *             @OA\Property(property="company_id", type="string", format="uuid", example="9d68cb84-f2a9-462f-aba7-ce35a68a955a"),
+     *             @OA\Property(property="department_id", type="string", format="uuid", example="9d68cb84-f2a9-462f-aba7-ce35a68a955a"),
      *             @OA\Property(property="name", type="string", example="mX"),
-     *             @OA\Property(property="team_name", type="string", nullable=true, example="team Z"),
      *         )
      *     ),
      *     @OA\Response(
@@ -110,25 +108,25 @@ class DepartmentController extends BaseController
      *              @OA\Property(property="message", type="string", example="OK"),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Company_fullCompanyDepartmentResponse"
+     *                  ref="#/components/schemas/Company_fullTeamResponse"
      *              ),
      *              @OA\Property(property="meta", type="object", example=null),
      *          ),
      *     )
      * )
      * */
-    public function store(CreateDepartmentRequest $request): JsonResponse
+    public function store(CreateTeamRequest $request): JsonResponse
     {
-        Gate::authorize('create', CompanyDepartment::class);
+        Gate::authorize('create', DepartmentTeam::class);
 
         $validatedData = $request->validated();
         $id = $this->addUuid($validatedData);
-        $data = CreateDepartmentData::from($validatedData);
+        $data = DepartmentTeamData::from($validatedData);
 
         DB::beginTransaction();
         try {
             CompanyAggregate::retrieve($id)
-                ->createDepartment($data)
+                ->createTeam($data)
                 ->persist();
 
             DB::commit();
@@ -137,30 +135,29 @@ class DepartmentController extends BaseController
             $this->failedResponse($exception->getMessage());
         }
 
-        $department = app(LoadDepartmentAction::class)($id);
-        return $this->okResponse(CompanyDepartmentResource::make($department));
+        $team = app(LoadTeamAction::class)($id);
+        return $this->okResponse(TeamResource::make($team));
     }
 
     /**
      * @OA\Put(
-     *     path="/company/v1/departments/{department}",
-     *     tags={"Departments"},
-     *     summary="Update department",
-     *     description="This endpoint is used to update a department",
+     *     path="/company/v1/teams/{team}",
+     *     tags={"Teams"},
+     *     summary="Update team",
+     *     description="This endpoint is used to update a team",
  *          @OA\Parameter(
-     *          name="department",
+     *          name="team",
      *          in="path",
      *          required=true,
      *          @OA\Schema(type="string", format="uuid"),
-     *          description="The ID of the department"
+     *          description="The ID of the team"
      *      ),
      *
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="name", type="string", example="mX"),
-     *             @OA\Property(property="team_name", type="string", nullable=true, example="team X"),
-     *             @OA\Property(property="team_id", type="string", format="uuid", example="9d68cb84-f2a9-462f-aba7-ce35a68a955a"),
+     *             @OA\Property(property="department_id", type="string", format="uuid", example="9d68cb84-f2a9-462f-aba7-ce35a68a955a"),
      *         )
      *     ),
      *     @OA\Response(
@@ -170,24 +167,24 @@ class DepartmentController extends BaseController
      *              @OA\Property(property="message", type="string", example="OK"),
      *              @OA\Property(
      *                  property="data",
-     *                  ref="#/components/schemas/Company_fullCompanyDepartmentResponse"
+     *                  ref="#/components/schemas/Company_fullTeamResponse"
      *              ),
      *              @OA\Property(property="meta", type="object", example=null),
      *          ),
      *     )
      * )
      * */
-    public function update(UpdateDepartmentRequest $request, CompanyDepartment $department): JsonResponse
+    public function update(UpdateTeamRequest $request, DepartmentTeam $team): JsonResponse
     {
-        Gate::authorize('update', $department);
+        Gate::authorize('update', $team);
 
         $validatedData = $request->all();
-        $data = UpdateDepartmentData::from($validatedData);
+        $data = DepartmentTeamData::from($validatedData);
 
         DB::beginTransaction();
         try {
             CompanyAggregate::retrieve($this->generateUuid())
-                ->updateDepartment($data)
+                ->updateTeam($data)
                 ->persist();
 
             DB::commit();
@@ -196,22 +193,22 @@ class DepartmentController extends BaseController
             $this->failedResponse($exception->getMessage());
         }
 
-        $department = app(LoadDepartmentAction::class)($data->id);
-        return $this->okResponse(CompanyDepartmentResource::make($department));
+        $team = app(LoadTeamAction::class)($data->id);
+        return $this->okResponse(TeamResource::make($team));
     }
 
     /**
      * @OA\Delete(
-     *     path="/company/v1/departments/{department}",
-     *     tags={"Departments"},
-     *     summary="Delete department",
-     *     description="This endpoint is used to delete a department",
+     *     path="/company/v1/teams/{team}",
+     *     tags={"Teams"},
+     *     summary="Delete team",
+     *     description="This endpoint is used to delete a team",
      *          @OA\Parameter(
-     *          name="department",
+     *          name="team",
      *          in="path",
      *          required=true,
      *          @OA\Schema(type="string", format="uuid"),
-     *          description="The ID of the department"
+     *          description="The ID of the team"
      *      ),
      *
      *     @OA\Response(
@@ -225,19 +222,16 @@ class DepartmentController extends BaseController
      *     )
      * )
      * */
-    public function destroy(CompanyDepartment $department): JsonResponse
+    public function destroy(DepartmentTeam $team): JsonResponse
     {
-        Gate::authorize('delete', $department);
+        Gate::authorize('delete', $team);
 
-        DB::beginTransaction();
         try {
             CompanyAggregate::retrieve($this->generateUuid())
-                ->deleteDepartment($department->id)
+                ->deleteTeam($team->id)
                 ->persist();
 
-            DB::commit();
         } catch (Exception $exception) {
-            DB::rollBack();
             $this->failedResponse($exception->getMessage());
         }
 

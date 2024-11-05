@@ -13,6 +13,7 @@ use App\Domain\Company\Events\DepartmentUpdated;
 use App\Domain\Company\Events\DepartmentDeleted;
 use App\Domain\Company\Events\TeamCreated;
 use App\Domain\Company\Events\TeamUpdated;
+use App\Domain\Company\Events\TeamDeleted;
 
 return [
 
@@ -122,6 +123,7 @@ return [
         'team_created' => TeamCreated::class,
         'team_updated' => TeamUpdated::class,
         'department_deleted' => DepartmentDeleted::class,
+        'team_deleted' => TeamDeleted::class,
     ],
 
     /*
