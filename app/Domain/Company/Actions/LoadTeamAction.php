@@ -3,23 +3,23 @@
 namespace App\Domain\Company\Actions;
 
 use App\Domain\Company\Exceptions\FailedToFindTheDataException;
-use App\Domain\Company\Projections\CompanyDepartment;
+use App\Domain\Company\Projections\DepartmentTeam;
 
-class LoadDepartmentAction
+class LoadTeamAction
 {
-    public function __construct(protected CompanyDepartment $department)
+    public function __construct(protected DepartmentTeam $team)
     {
     }
     public function __invoke(string $value, string $column = 'id')
     {
-        $department = $this->department->query()
+        $team = $this->team->query()
             ->with([
+                'companyDepartment',
                 'company',
-                'departmentTeams',
             ])
             ->where($column, $value)
             ->firstOr(fn() => throw new FailedToFindTheDataException());
 
-        return $department;
+        return $team;
     }
 }

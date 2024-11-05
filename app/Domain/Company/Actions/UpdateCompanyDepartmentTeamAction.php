@@ -13,17 +13,18 @@ class UpdateCompanyDepartmentTeamAction
     {
     }
 
-    public function __invoke(string $id, string $name): ?DepartmentTeam
+    public function __invoke(string $id, string $name, ?string $departmentId = null): ?DepartmentTeam
     {
         $team = $this->team->query()
             ->where('id', $id)
             ->firstOr(fn() => throw new FailedToFindTheDataException());
 
-        $result = $team->writeable()->update([
-            'name' => $name
-        ]);
+        $departmentId ??= $team->department_id;
 
-        Log::debug('inside the action: ', ['data' => $result]);
+        $result = $team->writeable()->update([
+            'name' => $name,
+            'department_id' => $departmentId
+        ]);
 
         if (!$result) {
             throw new FailedToUpdateDepartmentTeamException();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Company\Aggregates;
+namespace App\Domain\Company\Partials;
 
 use App\Domain\Company\DataTransferObjects\CreateDepartmentData;
 use App\Domain\Company\DataTransferObjects\UpdateDepartmentData;
@@ -10,9 +10,9 @@ use App\Domain\Company\Events\DepartmentUpdated;
 use App\Domain\Company\Events\TeamCreated;
 use App\Domain\Company\Events\TeamUpdated;
 use App\Domain\Company\Factories\TeamDataDTOFactory;
-use App\Support\Bases\BaseAggregate;
+use Spatie\EventSourcing\AggregateRoots\AggregatePartial;
 
-class DepartmentAggregate extends BaseAggregate
+class DepartmentAggregatePartial extends AggregatePartial
 {
     public function createDepartment(CreateDepartmentData $data): static
     {

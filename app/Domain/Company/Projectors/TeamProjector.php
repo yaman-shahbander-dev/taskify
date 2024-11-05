@@ -3,12 +3,13 @@
 namespace App\Domain\Company\Projectors;
 
 use App\Domain\Company\Actions\CreateDepartmentTeamAction;
+use App\Domain\Company\Actions\DeleteTeamAction;
 use App\Domain\Company\Actions\UpdateCompanyDepartmentTeamAction;
 use App\Domain\Company\Events\DepartmentTeamCreated;
 use App\Domain\Company\Events\TeamCreated;
+use App\Domain\Company\Events\TeamDeleted;
 use App\Domain\Company\Events\TeamUpdated;
 use App\Support\Bases\BaseProjector;
-use Illuminate\Support\Facades\Log;
 
 class TeamProjector extends BaseProjector
 {
@@ -35,7 +36,15 @@ class TeamProjector extends BaseProjector
     {
         return app(UpdateCompanyDepartmentTeamAction::class)(
             $event->data->id,
-            $event->data->name
+            $event->data->name,
+            $event->data->departmentId
+        );
+    }
+
+    public function onTeamDeleted(TeamDeleted $event)
+    {
+        return app(DeleteTeamAction::class)(
+            $event->teamId
         );
     }
 }
