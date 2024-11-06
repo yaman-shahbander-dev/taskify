@@ -29,4 +29,11 @@ enum PermissionsEnum: string
     case PROJECTS_STORE = 'projects.store.*';
     case PROJECTS_UPDATE = 'projects.update.*';
     case PROJECTS_DESTROY = 'projects.destroy.*';
+
+    case SPRINTS = 'sprints.*';
+    case SPRINTS_LIST = 'sprints.list.*';
+    case SPRINTS_SHOW = 'sprints.show.*';
+    case SPRINTS_STORE = 'sprints.store.*';
+    case SPRINTS_UPDATE = 'sprints.update.*';
+    case SPRINTS_DESTROY = 'sprints.destroy.*';
 }
