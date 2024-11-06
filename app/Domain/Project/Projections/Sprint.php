@@ -20,6 +20,6 @@ class Sprint extends BaseProjection
 
     public function tasks(): BelongsToMany
     {
-        return $this->belongsToMany(Task::class, 'sprint_tasks', 'sprint_id', 'task_id');
+        return $this->belongsToMany(Task::class, 'sprint_tasks', 'sprint_id', 'task_id')->withTimestamps();
     }
 }

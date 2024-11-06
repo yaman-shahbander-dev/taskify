@@ -1105,6 +1105,406 @@
                 }
             }
         },
+        "/company/v1/sprints": {
+            "get": {
+                "tags": [
+                    "Sprints"
+                ],
+                "summary": "Get sprints",
+                "description": "Get sprints",
+                "operationId": "a7b55b4af9e1734e4e3d9dacfe8479c5",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Company_SprintPaginatedResponse"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Sprints"
+                ],
+                "summary": "Create sprint",
+                "description": "This endpoint is used to create a new sprint",
+                "operationId": "b8b5c6229170c1eb78b4ed16526a692c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "project_id": {
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                    },
+                                    "number": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "start": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-11-10"
+                                    },
+                                    "end": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-11-24"
+                                    },
+                                    "goal": {
+                                        "type": "string",
+                                        "example": "sprint goal"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "pending"
+                                    },
+                                    "tasks": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "priority_id": {
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955c"
+                                                },
+                                                "assigned_to": {
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955d"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Create a login feature"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Develop the login module for the application"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullSprintResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad request"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unprocessable Content"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The goal field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/company/v1/sprints/{sprint}": {
+            "get": {
+                "tags": [
+                    "Sprints"
+                ],
+                "summary": "Get a specific sprint",
+                "description": "Retrieve details of a specific sprint by its ID",
+                "operationId": "90685d9dfbef030455c988e7f5f20a07",
+                "parameters": [
+                    {
+                        "name": "sprint",
+                        "in": "path",
+                        "description": "The ID of the sprint",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullSprintResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Sprints"
+                ],
+                "summary": "Update sprint",
+                "description": "This endpoint is used to update a sprint",
+                "operationId": "396c84e4d1734b9933ebb9584f885578",
+                "parameters": [
+                    {
+                        "name": "sprint",
+                        "in": "path",
+                        "description": "The ID of the sprint",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "project_id": {
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                    },
+                                    "number": {
+                                        "type": "integer",
+                                        "example": "2"
+                                    },
+                                    "start": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-11-10"
+                                    },
+                                    "end": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-11-24"
+                                    },
+                                    "goal": {
+                                        "type": "string",
+                                        "example": "sprint goal"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "pending"
+                                    },
+                                    "tasks": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955c"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullSprintResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad request"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unprocessable Content"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The goal field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Sprints"
+                ],
+                "summary": "Delete sprint",
+                "description": "This endpoint is used to delete a sprint",
+                "operationId": "8a6a6b63d9c079982eadef7b72b73aa1",
+                "parameters": [
+                    {
+                        "name": "sprint",
+                        "in": "path",
+                        "description": "The ID of the sprint",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/employee/v1/client/login": {
             "post": {
                 "tags": [
@@ -1861,6 +2261,112 @@
                 },
                 "type": "object"
             },
+            "Company_SprintPaginatedResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "number": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "start": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "end": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-24 09:56:21"
+                    },
+                    "goal": {
+                        "type": "string",
+                        "example": "The goal of the sprint is..."
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "in_progress"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedTaskResponse"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Company_FullSprintResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "number": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "start": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "end": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-24 09:56:21"
+                    },
+                    "goal": {
+                        "type": "string",
+                        "example": "The goal of the sprint is..."
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "in_progress"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedTaskResponse"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "Employee_EmployeeResponse": {
                 "properties": {
                     "message": {
@@ -1980,6 +2486,10 @@
         {
             "name": "Projects",
             "description": "Projects"
+        },
+        {
+            "name": "Sprints",
+            "description": "Sprints"
         }
     ]
 }

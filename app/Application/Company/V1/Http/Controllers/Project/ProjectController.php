@@ -5,6 +5,7 @@ namespace App\Application\Company\V1\Http\Controllers\Project;
 use App\Application\Company\V1\Http\Requests\Project\CreateProjectRequest;
 use App\Application\Company\V1\Http\Requests\Project\UpdateProjectRequest;
 use App\Application\Company\V1\Http\Resources\Company\TeamPaginatedResource;
+use App\Application\Company\V1\Http\Resources\Project\ProjectPaginatedResource;
 use App\Application\Company\V1\Http\Resources\Project\ProjectResource;
 use App\Domain\Project\Actions\GetProjectsAction;
 use App\Domain\Project\Actions\LoadProjectAction;
@@ -51,7 +52,7 @@ class ProjectController extends BaseController
         $userId = auth()->user()->id;
         $projects = app(GetProjectsAction::class)($userId);
 
-        return $this->okResponse(TeamPaginatedResource::collection($projects));
+        return $this->okResponse(ProjectPaginatedResource::collection($projects));
     }
 
     /**

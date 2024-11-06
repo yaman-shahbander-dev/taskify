@@ -21,6 +21,9 @@ use App\Domain\Project\Events\SprintCreated;
 use App\Domain\Project\Events\ProjectTaskCreated;
 use App\Domain\Project\Events\ProjectUpdated;
 use App\Domain\Project\Events\ProjectDeleted;
+use App\Domain\Project\Events\TaskCreated;
+use App\Domain\Project\Events\SprintUpdated;
+use App\Domain\Project\Events\SprintDeleted;
 
 return [
 
@@ -138,6 +141,9 @@ return [
         'project_task_created' => ProjectTaskCreated::class,
         'project_updated' => ProjectUpdated::class,
         'project_deleted' => ProjectDeleted::class,
+        'task_created' => TaskCreated::class,
+        'sprint_updated' => SprintUpdated::class,
+        'sprint_deleted' => SprintDeleted::class,
     ],
 
     /*
