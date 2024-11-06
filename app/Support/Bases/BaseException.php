@@ -9,6 +9,7 @@ use Exception;
 abstract class BaseException extends Exception
 {
     use ResponseTrait;
+
     public function __construct($message = null, $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);

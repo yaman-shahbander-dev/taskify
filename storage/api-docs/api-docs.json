@@ -729,6 +729,382 @@
                 }
             }
         },
+        "/company/v1/projects": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Get projects",
+                "description": "Get projects",
+                "operationId": "a8ff953ab069d228b97c2157ff4a51a8",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Company_ProjectPaginatedResponse"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Create project",
+                "description": "This endpoint is used to create a new project",
+                "operationId": "d5d73b40f178867a9fcd1b0a4ac1feae",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "mX"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A project description"
+                                    },
+                                    "companies": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                        }
+                                    },
+                                    "departments": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955b"
+                                        }
+                                    },
+                                    "sprint": {
+                                        "required": [
+                                            "number",
+                                            "start",
+                                            "end",
+                                            "goal"
+                                        ],
+                                        "properties": {
+                                            "number": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "start": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2024-11-04"
+                                            },
+                                            "end": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2024-12-04"
+                                            },
+                                            "goal": {
+                                                "type": "string",
+                                                "example": "Complete feature X"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "tasks": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "priority_id": {
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955c"
+                                                },
+                                                "assigned_to": {
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955d"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Create a login feature"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Develop the login module for the application"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullProjectResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad request"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unprocessable Content"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The name field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/company/v1/projects/{project}": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Get a specific project",
+                "description": "Retrieve details of a specific project by its ID",
+                "operationId": "f42841d3c1f6bcf5cc36cd80830238a1",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "The ID of the project",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullProjectResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Update project",
+                "description": "This endpoint is used to update a project",
+                "operationId": "2e190ef5447cb3799a3a9bc7c4268ebc",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "The ID of the project",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "mX"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "mX"
+                                    },
+                                    "companies": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                        }
+                                    },
+                                    "departments": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullProjectResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Delete project",
+                "description": "This endpoint is used to delete a project",
+                "operationId": "6897dbe4db63b09bfa5b96b420a65456",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "The ID of the project",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/employee/v1/client/login": {
             "post": {
                 "tags": [
@@ -1307,6 +1683,184 @@
                 },
                 "type": "object"
             },
+            "Company_MinifiedSprintResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "number": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "start": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "end": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-12-04 09:56:21"
+                    },
+                    "goal": {
+                        "type": "string",
+                        "example": "feature x"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "in_progress"
+                    }
+                },
+                "type": "object"
+            },
+            "Company_MinifiedTaskResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "project_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "priority_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "assigned_to": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "create a login feature"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "create a login feature"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "in_progress"
+                    }
+                },
+                "type": "object"
+            },
+            "Company_ProjectPaginatedResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "default company team #1730382974"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "default company department #1730382974"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "companies": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_CompanyResponse"
+                        }
+                    },
+                    "departments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedCompanyDepartmentResponse"
+                        }
+                    },
+                    "sprints": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedSprintResponse"
+                        }
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedTaskResponse"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Company_FullProjectResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "default company team #1730382974"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "default company department #1730382974"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-04 09:56:21"
+                    },
+                    "companies": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_CompanyResponse"
+                        }
+                    },
+                    "departments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedCompanyDepartmentResponse"
+                        }
+                    },
+                    "sprints": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedSprintResponse"
+                        }
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Company_MinifiedTaskResponse"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "Employee_EmployeeResponse": {
                 "properties": {
                     "message": {
@@ -1422,6 +1976,10 @@
         {
             "name": "Teams",
             "description": "Teams"
+        },
+        {
+            "name": "Projects",
+            "description": "Projects"
         }
     ]
 }

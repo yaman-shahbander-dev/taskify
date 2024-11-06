@@ -10,9 +10,9 @@ use App\Domain\Company\Events\DepartmentUpdated;
 use App\Domain\Company\Events\TeamCreated;
 use App\Domain\Company\Events\TeamUpdated;
 use App\Domain\Company\Factories\TeamDataDTOFactory;
-use Spatie\EventSourcing\AggregateRoots\AggregatePartial;
+use App\Support\Bases\BaseAggregatePartial;
 
-class DepartmentAggregatePartial extends AggregatePartial
+class DepartmentAggregatePartial extends BaseAggregatePartial
 {
     public function createDepartment(CreateDepartmentData $data): static
     {

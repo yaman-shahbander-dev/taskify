@@ -15,3 +15,11 @@ if (!function_exists('formatDTO')) {
         return $DTOdata::from($data);
     }
 }
+
+if (!function_exists('generateUuid')) {
+    function generateUuid(): string
+    {
+        return Str::orderedUuid()->toString();
+    }
+}
+

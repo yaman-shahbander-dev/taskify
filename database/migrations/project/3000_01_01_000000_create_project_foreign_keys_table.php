@@ -11,11 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('projects')) {
-            Schema::table('projects', function (Blueprint $table) {
+        if (Schema::hasTable('project_companies')) {
+            Schema::table('project_companies', function (Blueprint $table) {
+                $table->foreign('project_id')
+                    ->references('id')
+                    ->on('projects')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+
                 $table->foreign('company_id')
                     ->references('id')
                     ->on('companies')
+                    ->cascadeOnUpdate()
+                    ->cascadeOnDelete();
+            });
+        }
+
+        if (Schema::hasTable('project_departments')) {
+            Schema::table('project_departments', function (Blueprint $table) {
+                $table->foreign('project_id')
+                    ->references('id')
+                    ->on('projects')
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
 
@@ -82,12 +98,6 @@ return new class extends Migration
                     ->on('tasks')
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
-
-                $table->foreign('priority_id')
-                    ->references('id')
-                    ->on('priority_levels')
-                    ->cascadeOnUpdate()
-                    ->cascadeOnDelete();
             });
         }
 
@@ -127,9 +137,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->dropForeign('projects_company_id_foreign');
-            $table->dropForeign('projects_department_id_foreign');
+        Schema::table('project_companies', function (Blueprint $table) {
+            $table->dropForeign('project_companies_project_id_foreign');
+            $table->dropForeign('project_companies_company_id_foreign');
+        });
+
+        Schema::table('project_departments', function (Blueprint $table) {
+            $table->dropForeign('project_departments_project_id_foreign');
+            $table->dropForeign('project_departments_department_id_foreign');
         });
 
         Schema::table('tasks', function (Blueprint $table) {
@@ -149,7 +164,6 @@ return new class extends Migration
         Schema::table('sprint_tasks', function (Blueprint $table) {
             $table->dropForeign('sprint_tasks_sprint_id_foreign');
             $table->dropForeign('sprint_tasks_task_id_foreign');
-            $table->dropForeign('sprint_tasks_priority_id_foreign');
         });
 
         Schema::table('sprint_reviews', function (Blueprint $table) {

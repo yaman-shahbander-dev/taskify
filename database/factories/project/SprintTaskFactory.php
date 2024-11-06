@@ -2,7 +2,6 @@
 
 namespace Database\Factories\project;
 
-use App\Domain\Project\Projections\PriorityLevel;
 use App\Domain\Project\Projections\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Domain\Project\Projections\SprintTask;
@@ -24,15 +23,10 @@ class SprintTaskFactory extends Factory
             ->first() ?? SprintFactory::new()->createWritable(['project_id' => $project->id]);
         $task = Task::query()->where('project_id', $project->id)->inRandomOrder()
             ->first() ?? TaskFactory::new()->createWritable(['project_id' => $project->id]);
-        $priority = PriorityLevel::query()->inRandomOrder()->first()
-            ?? PriorityLevelFactory::new()->createWritable();
 
         return [
-            'id' => fake()->unique()->uuid(),
             'sprint_id' => $sprint->id,
             'task_id' => $task->id,
-            'priority_id' => $priority->id,
-            'status' => fake()->word,
             'created_at' => now(),
             'updated_at' => now(),
         ];

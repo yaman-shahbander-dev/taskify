@@ -27,6 +27,8 @@ use Database\Seeders\finance\InvoiceSeeder;
 use Database\Seeders\finance\PaymentTransactionSeeder;
 use Database\Seeders\project\MeetingSeeder;
 use Database\Seeders\project\PriorityLevelSeeder;
+use Database\Seeders\project\ProjectCompanySeeder;
+use Database\Seeders\project\ProjectDepartmentSeeder;
 use Database\Seeders\project\ProjectSeeder;
 use Database\Seeders\project\SprintChangeLogSeeder;
 use Database\Seeders\project\SprintRetrospectiveSeeder;
@@ -66,6 +68,8 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             SalarySeeder::class,
             ProjectSeeder::class,
+            ProjectCompanySeeder::class,
+            ProjectDepartmentSeeder::class,
             PriorityLevelSeeder::class,
             TaskSeeder::class,
             MeetingSeeder::class,

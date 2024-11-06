@@ -8,8 +8,5 @@ class SprintTask extends BaseProjection
 {
     protected $table = 'sprint_tasks';
 
-    public function getKeyName(): string
-    {
-        return 'id';
-    }
+    protected $fillable = ['sprint_id', 'task_id'];
 }

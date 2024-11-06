@@ -12,11 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sprint_tasks', function (Blueprint $table) {
-            $table->uuid('id')->primary();
             $table->foreignUuid('sprint_id');
             $table->foreignUuid('task_id');
-            $table->foreignUuid('priority_id');
-            $table->string('status');
             $table->timestamps();
         });
     }

@@ -14,6 +14,13 @@ use App\Domain\Company\Events\DepartmentDeleted;
 use App\Domain\Company\Events\TeamCreated;
 use App\Domain\Company\Events\TeamUpdated;
 use App\Domain\Company\Events\TeamDeleted;
+use App\Domain\Project\Events\ProjectCreated;
+use App\Domain\Project\Events\ProjectCompanyCreated;
+use App\Domain\Project\Events\ProjectDepartmentCreated;
+use App\Domain\Project\Events\SprintCreated;
+use App\Domain\Project\Events\ProjectTaskCreated;
+use App\Domain\Project\Events\ProjectUpdated;
+use App\Domain\Project\Events\ProjectDeleted;
 
 return [
 
@@ -124,6 +131,13 @@ return [
         'team_updated' => TeamUpdated::class,
         'department_deleted' => DepartmentDeleted::class,
         'team_deleted' => TeamDeleted::class,
+        'project_created' => ProjectCreated::class,
+        'project_company_created' => ProjectCompanyCreated::class,
+        'project_department_created' => ProjectDepartmentCreated::class,
+        'sprint_created' => SprintCreated::class,
+        'project_task_created' => ProjectTaskCreated::class,
+        'project_updated' => ProjectUpdated::class,
+        'project_deleted' => ProjectDeleted::class,
     ],
 
     /*
