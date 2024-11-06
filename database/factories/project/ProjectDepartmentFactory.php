@@ -36,7 +36,6 @@ class ProjectDepartmentFactory extends Factory
             ?? CompanyDepartmentFactory::new()->createWritable(['company_id' => $company->id]);
 
         return [
-            'id' => fake()->unique()->uuid(),
             'project_id' => $project->id,
             'department_id' => $department->id,
             'created_at' => now(),

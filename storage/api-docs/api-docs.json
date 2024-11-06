@@ -764,6 +764,169 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Create project",
+                "description": "This endpoint is used to create a new project",
+                "operationId": "d5d73b40f178867a9fcd1b0a4ac1feae",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "mX"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A project description"
+                                    },
+                                    "companies": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                        }
+                                    },
+                                    "departments": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955b"
+                                        }
+                                    },
+                                    "sprint": {
+                                        "required": [
+                                            "number",
+                                            "start",
+                                            "end",
+                                            "goal"
+                                        ],
+                                        "properties": {
+                                            "number": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "start": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2024-11-04"
+                                            },
+                                            "end": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2024-12-04"
+                                            },
+                                            "goal": {
+                                                "type": "string",
+                                                "example": "Complete feature X"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "tasks": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "priority_id": {
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955c"
+                                                },
+                                                "assigned_to": {
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955d"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Create a login feature"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Develop the login module for the application"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullProjectResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad request"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unprocessable Content"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "example": "The name field is required."
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/company/v1/projects/{project}": {
@@ -799,6 +962,135 @@
                                         },
                                         "data": {
                                             "$ref": "#/components/schemas/Company_FullProjectResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Update project",
+                "description": "This endpoint is used to update a project",
+                "operationId": "2e190ef5447cb3799a3a9bc7c4268ebc",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "The ID of the project",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "mX"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "mX"
+                                    },
+                                    "companies": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                        }
+                                    },
+                                    "departments": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "uuid",
+                                            "example": "9d68cb84-f2a9-462f-aba7-ce35a68a955a"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Company_FullProjectResponse"
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Delete project",
+                "description": "This endpoint is used to delete a project",
+                "operationId": "6897dbe4db63b09bfa5b96b420a65456",
+                "parameters": [
+                    {
+                        "name": "project",
+                        "in": "path",
+                        "description": "The ID of the project",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object"
+                                            }
                                         },
                                         "meta": {
                                             "type": "object",

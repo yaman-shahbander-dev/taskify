@@ -30,7 +30,6 @@ class ProjectCompanyFactory extends Factory
             ?? ProjectFactory::new()->createWritable();
 
         return [
-            'id' => fake()->unique()->uuid(),
             'project_id' => $project->id,
             'company_id' => $company->id,
             'created_at' => now(),

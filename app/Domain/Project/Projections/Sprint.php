@@ -11,6 +11,8 @@ class Sprint extends BaseProjection
 {
     protected $table = 'sprints';
 
+    protected $fillable = ['id', 'project_id', 'number', 'start', 'end', 'goal', 'status'];
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);

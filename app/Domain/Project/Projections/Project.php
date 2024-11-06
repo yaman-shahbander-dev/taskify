@@ -12,6 +12,8 @@ class Project extends BaseProjection
 {
     protected $table = 'projects';
 
+    protected $fillable = ['id', 'name', 'description'];
+
     public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class, 'project_companies', 'project_id', 'company_id');

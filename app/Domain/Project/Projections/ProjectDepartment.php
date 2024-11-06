@@ -8,5 +8,5 @@ class ProjectDepartment extends BaseProjection
 {
     protected $table = 'project_departments';
 
-    protected $fillable = ['id', 'project_id', 'department_id'];
+    protected $fillable = ['project_id', 'department_id'];
 }

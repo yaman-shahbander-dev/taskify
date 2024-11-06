@@ -98,12 +98,6 @@ return new class extends Migration
                     ->on('tasks')
                     ->cascadeOnUpdate()
                     ->cascadeOnDelete();
-
-                $table->foreign('priority_id')
-                    ->references('id')
-                    ->on('priority_levels')
-                    ->cascadeOnUpdate()
-                    ->cascadeOnDelete();
             });
         }
 
@@ -170,7 +164,6 @@ return new class extends Migration
         Schema::table('sprint_tasks', function (Blueprint $table) {
             $table->dropForeign('sprint_tasks_sprint_id_foreign');
             $table->dropForeign('sprint_tasks_task_id_foreign');
-            $table->dropForeign('sprint_tasks_priority_id_foreign');
         });
 
         Schema::table('sprint_reviews', function (Blueprint $table) {

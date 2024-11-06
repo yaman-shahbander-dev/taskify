@@ -43,7 +43,7 @@ class CreateProjectRequest extends BaseRequest
                 new OwnsDepartment(),
             ],
             'sprint' => [
-                'nullable',
+                'required_with:tasks',
             ],
             'sprint.number' => [
                 'required_with:sprint',
@@ -65,7 +65,7 @@ class CreateProjectRequest extends BaseRequest
                 'min:1',
             ],
             'tasks' => [
-                'nullable',
+                'required_with:sprint',
                 'array',
             ],
             'tasks.*.priority_id' => [

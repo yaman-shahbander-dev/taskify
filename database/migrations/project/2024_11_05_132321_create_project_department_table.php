@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_departments', function (Blueprint $table) {
-            $table->uuid('id')->primary();
             $table->foreignUuid('project_id');
             $table->foreignUuid('department_id');
             $table->timestamps();

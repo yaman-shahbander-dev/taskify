@@ -20,4 +20,18 @@ class ProjectAggregate extends BaseAggregate
 
         return $this;
     }
+
+    public function updateProject(ProjectData $data): static
+    {
+        $this->project->updateProject($data);
+
+        return $this;
+    }
+
+    public function deleteProject(string $projectId): static
+    {
+        $this->project->deleteProject($projectId);
+
+        return $this;
+    }
 }
