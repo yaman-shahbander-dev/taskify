@@ -477,6 +477,43 @@
                 }
             }
         },
+        "/company/v1/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get tasks",
+                "description": "Get tasks",
+                "operationId": "16584217cef1bcb8cf5de7e07105bc8b",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Company_TaskPaginatedResponse"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/company/v1/teams": {
             "get": {
                 "tags": [
@@ -1990,6 +2027,50 @@
                 },
                 "type": "object"
             },
+            "Company_TaskPaginatedResponse": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "9d609e3f-c26d-4612-a1b4-71a60d2d6927"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "created task title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "created task desc"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "pending"
+                    },
+                    "project_name": {
+                        "type": "string",
+                        "example": "taskify"
+                    },
+                    "priority": {
+                        "type": "string",
+                        "example": "high"
+                    },
+                    "assigned_to_user": {
+                        "type": "string",
+                        "example": "yaman"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-14 09:56:21"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-14 09:56:21"
+                    }
+                },
+                "type": "object"
+            },
             "Company_TeamPaginatedResponse": {
                 "properties": {
                     "id": {
@@ -2478,6 +2559,10 @@
         {
             "name": "Departments",
             "description": "Departments"
+        },
+        {
+            "name": "Tasks",
+            "description": "Tasks"
         },
         {
             "name": "Teams",

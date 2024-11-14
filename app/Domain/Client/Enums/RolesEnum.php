@@ -24,11 +24,14 @@ enum RolesEnum: string
                 PermissionsEnum::TEAMS_SHOW->value,
                 PermissionsEnum::PROJECTS_LIST->value,
                 PermissionsEnum::PROJECTS_SHOW->value,
+                PermissionsEnum::TASKS_LIST->value,
+                PermissionsEnum::TASKS_SHOW->value,
             ],
             self::COMPANY->value => [
                 PermissionsEnum::DEPARTMENTS->value,
                 PermissionsEnum::TEAMS->value,
                 PermissionsEnum::PROJECTS->value,
+                PermissionsEnum::TASKS->value,
             ],
             self::MANAGER->value => [
             ],
